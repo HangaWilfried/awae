@@ -4,6 +4,7 @@
       <label :for="label">{{ label }}</label>
     </slot>
     <input
+      :id="label"
       class="rounded lg:rounded-lg p-2 lg:py-2.5 outline-none border border-gray-300 focus:border-2 focus:border-blue-400"
       :data-test="`${label.toLowerCase()}Field`"
       type="text"

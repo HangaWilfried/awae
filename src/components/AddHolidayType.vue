@@ -8,7 +8,7 @@
         <div class="text-lg">{{ t("formTitle") }}</div>
       </section>
       <section class="p-7 space-y-4">
-        <TextField :label="t('name')" placeholder="" v-model="state.type">
+        <TextField :label="t('name')" placeholder="" v-model="state.name">
           <template #default="{ label }">
             <label :for="label" class="space-x-0.5">
               {{ label }}
@@ -67,14 +67,14 @@ const close = (): void => {
 const isLoading = ref<boolean>(false);
 
 const state = reactive({
-  type: "",
+  name: "",
   description: "",
 });
 
 const $externalResults = ref({});
 
 const rules = computed(() => ({
-  type: {
+  name: {
     required,
   },
 }));

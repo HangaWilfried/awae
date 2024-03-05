@@ -3,6 +3,13 @@
     class="rounded-xl p-7 flex flex-col gap-4 w-[90%] max-w-[500px] bg-white"
   >
     <TextField v-model="state.title" :label="t('title')" />
+    <DropdownField
+      v-model="state.type"
+      :options="holidaysTypes"
+      :label="t('type')"
+    />
+    <DateField v-model="state.period.start" :label="t('from')" />
+    <DateField v-model="state.period.end" :label="t('to')" />
     <TextareaField v-model="state.description" :label="t('description')" />
     <div class="pt-7 flex gap-2 items-center">
       <TwButton
@@ -15,7 +22,7 @@
         :disabled="!canSave"
         @click="save"
         :cta="t('Save')"
-        :theme="THEME.BLUE"
+        :theme="canSave ? THEME.BLUE : THEME.GRAY"
       />
     </div>
   </section>
@@ -24,16 +31,31 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { THEME } from "@/utils/enum";
-import { computed, reactive, ref } from "vue";
+import { computed, onBeforeMount, reactive, ref } from "vue";
+
 import { useHolidayStore } from "@/stores/holiday";
+import { useHolidayConfigStore } from "@/stores/config";
+
+import { HolidayTypeItem } from "@/utils/interface";
 import type { HolidayType } from "@/domain/config";
 import { type Holiday, NullablePeriod } from "@/domain/holiday";
 
 import TwButton from "@/components/TwButton.vue";
 import TextField from "@/components/TextField.vue";
+import DateField from "@/components/DateField.vue";
 import TextareaField from "@/components/TextareaField.vue";
+import DropdownField from "@/components/DropdownField.vue";
+import { required } from "@vuelidate/validators";
+import useVuelidate from "@vuelidate/core";
 
 const holidayStore = useHolidayStore();
+const configStore = useHolidayConfigStore();
+
+const holidaysTypes = ref<HolidayTypeItem[]>([]);
+onBeforeMount(async () => {
+  const types = await configStore.getAllHolidaysTypes();
+  holidaysTypes.value = types.map((type) => new HolidayTypeItem(type));
+});
 
 const emit = defineEmits<{
   (e: "close"): void;
@@ -43,12 +65,18 @@ const emit = defineEmits<{
 const { t } = useI18n({
   messages: {
     en: {
+      to: "To",
+      from: "From",
+      type: "Type",
       save: "Save",
       title: "Title",
       cancel: "Cancel",
       description: "Description",
     },
     fr: {
+      to: "Au",
+      from: "Du",
+      type: "Type",
       title: "Titre",
       cancel: "Annuler",
       save: "Enregistrer",
@@ -81,6 +109,18 @@ const state = reactive<State>({
   },
 });
 
+const rules = computed(() => ({
+  type: {
+    required,
+  },
+  period: {
+    start: { required },
+    end: { required },
+  },
+}));
+
+const v$ = useVuelidate(rules, state);
+
 const canSave = computed(
   (): boolean =>
     JSON.stringify({
@@ -91,7 +131,7 @@ const canSave = computed(
         end: props.holiday.validity.endDate,
         start: props.holiday.validity.startDate,
       },
-    }) !== JSON.stringify(state),
+    }) !== JSON.stringify(state) && !v$.value.$invalid,
 );
 
 const isLoading = ref<boolean>(false);

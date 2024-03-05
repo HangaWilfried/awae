@@ -28,9 +28,9 @@ const { t } = useI18n({
     fr: {
       yes: "Oui",
       draft: "Etes-vous sur de revenir au brouillon",
-      reject: "Etes-vous sur de rejeter cette demande de conge",
-      publish: "Etes-vous sur de publier cette demande de conge",
-      validate: "Etes-vous sur de valider cette demande de conge",
+      reject: "Etes-vous sur de rejeter cette demande de congé",
+      publish: "Etes-vous sur de publier cette demande de congé",
+      validate: "Etes-vous sur de valider cette demande de congé",
     },
   },
 });

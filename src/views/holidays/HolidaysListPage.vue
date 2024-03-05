@@ -1,5 +1,10 @@
 <template>
   <section class="p-4 space-y-7">
+    <AddHoliday
+      @getDetails="viewDetails"
+      @close="closeCreateHolidayForm"
+      v-if="shouldOpenCreateHolidayForm"
+    />
     <HolidayDetailsModal
       :holidayId="currentHolidayId"
       v-if="shouldDisplayModalDetails"
@@ -8,14 +13,22 @@
     <InLoading v-if="isLoading" />
     <section class="flex flex-col gap-4" v-else>
       <div class="flex flex-col gap-4">
-        <h2 class="flex flex-col font-sans font-medium">
-          <span class="text-blue-800 text-xl">
-            {{ t("holidays", { total: holidays.length }) }}
-          </span>
-          <span class="text-xs text-gray-800 font-bold">
-            {{ t("description") }}
-          </span>
-        </h2>
+        <div class="flex justify-between items-center">
+          <h2 class="flex flex-col font-sans font-medium">
+            <span class="text-blue-800 text-xl">
+              {{ t("holidays", { total: holidays.length }) }}
+            </span>
+            <span class="text-xs text-gray-800 font-bold">
+              {{ t("description") }}
+            </span>
+          </h2>
+          <TwButton
+            :cta="t('add')"
+            class="text-sm"
+            :theme="THEME.BLUE"
+            @click="shouldOpenCreateHolidayForm = true"
+          />
+        </div>
         <div class="border-b border-gray-100 flex items-2">
           <span
             :data-test="t('incoming')"
@@ -86,6 +99,8 @@ import {
   ref,
   watch,
 } from "vue";
+import TwButton from "@/components/TwButton.vue";
+import { THEME } from "@/utils/enum";
 
 const InLoading = defineAsyncComponent(
   () => import("@/components/InLoading.vue"),
@@ -95,6 +110,10 @@ const HolidayLine = defineAsyncComponent(
 );
 const HolidayDetailsModal = defineAsyncComponent(
   () => import("@/components/HolidayDetailsModal.vue"),
+);
+
+const AddHoliday = defineAsyncComponent(
+  () => import("@/components/AddHoliday.vue"),
 );
 
 const session = useSessionStore();
@@ -130,6 +149,16 @@ const getAllHolidays = async (): Promise<void> => {
   isLoading.value = false;
 };
 
+const shouldOpenCreateHolidayForm = ref<boolean>(false);
+const closeCreateHolidayForm = () => {
+  shouldOpenCreateHolidayForm.value = false;
+};
+
+const viewDetails = (holidayId: number): void => {
+  currentHolidayId.value = holidayId;
+  shouldOpenCreateHolidayForm.value = false;
+};
+
 onBeforeMount(async () => {
   await getAllHolidays();
 });
@@ -144,6 +173,7 @@ watch(
 const { t } = useI18n({
   messages: {
     en: {
+      add: "+ Add new request",
       type: "Type",
       owner: "Owner",
       status: "Status",
@@ -156,6 +186,7 @@ const { t } = useI18n({
         "Here you will find all created holidays. | here you will all holidays you created.",
     },
     fr: {
+      add: "+ Créer une demande",
       type: "Type",
       period: "Durée",
       status: "Status",

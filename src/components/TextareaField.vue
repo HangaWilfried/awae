@@ -10,12 +10,14 @@ defineProps<{
   <div class="flex flex-col gap-2">
     <label for="reason">{{ label }} </label>
     <textarea
+      id="reason"
       v-if="size"
       :style="{ height: size + 'px' }"
       class="resize-none rounded-lg focus:border-blue-400 outline-none p-2 border border-gray-300 focus:border-2"
       v-model="model"
     ></textarea>
     <textarea
+      id="reason"
       v-else
       class="resize-none h-20 rounded-lg focus:border-blue-400 outline-none p-2 border border-gray-300 focus:border-2"
       v-model="model"

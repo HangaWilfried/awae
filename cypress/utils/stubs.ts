@@ -190,7 +190,7 @@ export const utilsMocks = () => {
   const stubConfigsByHolidayTypeById = () => {
     cy.intercept(
       {
-        url: baseUrl + "config/holiday/1",
+        url: baseUrl + "holiday-type/1/config",
         method: "GET",
       },
       {
@@ -203,7 +203,7 @@ export const utilsMocks = () => {
   const stubConfigById = () => {
     cy.intercept(
       {
-        url: baseUrl + "config/holiday/3",
+        url: baseUrl + "config/3",
         method: "GET",
       },
       {

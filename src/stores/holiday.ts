@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Holiday, NullableHoliday } from "@/domain/holiday";
+import { Holiday, type HolidayForm, NullableHoliday } from "@/domain/holiday";
 import { HolidayService } from "@/services/awae";
 import type { Reason } from "@/domain/reason";
 
@@ -99,11 +99,28 @@ export const useHolidayStore = defineStore("holiday", () => {
     }
   };
 
+  const createHoliday = async ({
+    holiday,
+  }: {
+    holiday: HolidayForm;
+  }): Promise<number | undefined> => {
+    let holidayId = undefined;
+    try {
+      holidayId = await HolidayService.createHoliday({
+        requestBody: Holiday.build(holiday),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    return holidayId;
+  };
+
   return {
     editHoliday,
     draftHoliday,
     rejectHoliday,
     getMyHolidays,
+    createHoliday,
     getHolidayById,
     getAllHolidays,
     publishHoliday,
