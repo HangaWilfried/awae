@@ -1,6 +1,6 @@
 <template>
   <section class="p-4 space-y-7">
-    <HolidayDetails
+    <HolidayDetailsModal
       :holidayId="currentHolidayId"
       v-if="shouldDisplayModalDetails"
       @close="closeHolidayDetailsModal"
@@ -93,8 +93,8 @@ const InLoading = defineAsyncComponent(
 const HolidayLine = defineAsyncComponent(
   () => import("@/components/HolidayLine.vue"),
 );
-const HolidayDetails = defineAsyncComponent(
-  () => import("@/components/HolidayDetails.vue"),
+const HolidayDetailsModal = defineAsyncComponent(
+  () => import("@/components/HolidayDetailsModal.vue"),
 );
 
 const session = useSessionStore();

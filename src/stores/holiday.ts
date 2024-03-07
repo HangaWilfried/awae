@@ -88,7 +88,19 @@ export const useHolidayStore = defineStore("holiday", () => {
     }
   };
 
+  const editHoliday = async (holiday: Holiday): Promise<void> => {
+    try {
+      await HolidayService.updateHoliday({
+        holidayId: +holiday.id,
+        requestBody: holiday.DTO,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
+    editHoliday,
     draftHoliday,
     rejectHoliday,
     getMyHolidays,

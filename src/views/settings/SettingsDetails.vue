@@ -13,6 +13,8 @@ import TwButton from "@/components/TwButton.vue";
 import { THEME } from "@/utils/enum";
 import InLoading from "@/components/InLoading.vue";
 import { useRouter } from "vue-router";
+import TwBreadcrumb from "@/components/TwBreadcrumb.vue";
+import type { Link } from "@/utils/type";
 
 const configStore = useHolidayConfigStore();
 const holidayType = ref<HolidayType>(NullableHolidayType());
@@ -98,13 +100,25 @@ const fetchSettingsDetails = async (): Promise<void> => {
   isLoading.value = false;
 };
 
+const breadcrumb = ref<Link[]>([
+  {
+    name: "Holidays types",
+    path: "/settings",
+  },
+  {
+    name: `holiday type ${props.id}`,
+    path: `/settings/${props.id}`,
+  },
+]);
+
 onBeforeMount(async () => {
   await fetchSettingsDetails();
 });
 </script>
 
 <template>
-  <section class="p-10 flex flex-col gap-4">
+  <section class="p-4 flex flex-col gap-4">
+    <TwBreadcrumb :breadcrumb="breadcrumb" />
     <InLoading v-if="isLoading" />
     <template v-else>
       <section class="rounded-md space-y-5 p-7 bg-white">

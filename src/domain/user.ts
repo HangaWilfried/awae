@@ -33,7 +33,7 @@ export class User {
   }
 
   get fullName(): string {
-    return this.lastname + "" + this.firstname;
+    return this.lastname + " " + this.firstname;
   }
 
   get dateOfBirth(): string {

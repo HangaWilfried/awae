@@ -7,12 +7,15 @@ import { type HolidayConfig, NullableHolidayConfig } from "@/domain/config";
 import TwButton from "@/components/TwButton.vue";
 import { THEME } from "@/utils/enum";
 import ConfigStatus from "@/components/ConfigStatus.vue";
+import TwBreadcrumb from "@/components/TwBreadcrumb.vue";
+import type { Link } from "@/utils/type";
 
 const configStore = useHolidayConfigStore();
 const config = ref<HolidayConfig>(NullableHolidayConfig());
 
 const props = defineProps<{
   configId?: number;
+  holidayTypeId?: number;
 }>();
 
 const { t } = useI18n({
@@ -66,6 +69,21 @@ const fetchDetails = async (): Promise<void> => {
   isDetailsLoading.value = false;
 };
 
+const breadcrumb = ref<Link[]>([
+  {
+    name: "Holidays types",
+    path: "/settings",
+  },
+  {
+    name: `Holiday type ${props.holidayTypeId}`,
+    path: `/settings/${props.holidayTypeId}`,
+  },
+  {
+    name: `config ${props.configId}`,
+    path: `/settings/${props.holidayTypeId}/${props.configId}`,
+  },
+]);
+
 onBeforeMount(async () => {
   await fetchDetails();
 });
@@ -73,6 +91,7 @@ onBeforeMount(async () => {
 
 <template>
   <section class="p-4 flex flex-col gap-4">
+    <TwBreadcrumb :breadcrumb="breadcrumb" />
     <section class="bg-white rounded-lg p-7 flex flex-col gap-y-7">
       <section class="flex gap-3 items-center justify-end">
         <TwButton
