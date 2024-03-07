@@ -21,8 +21,16 @@ export class Holiday {
     return getStringFrom(this.holiday.title);
   }
 
+  set title(title: string) {
+    this.holiday.title = title;
+  }
+
   get description(): string {
     return getStringFrom(this.holiday.description);
+  }
+
+  set description(description: string) {
+    this.holiday.description = description;
   }
 
   get createdAt(): string {
@@ -56,6 +64,10 @@ export class Holiday {
     return NullablePeriod();
   }
 
+  set validity(period: Period) {
+    this.holiday.period = period.DTO;
+  }
+
   get type(): HolidayType {
     if (this.holiday.type) {
       return new HolidayType(this.holiday.type);
@@ -63,11 +75,19 @@ export class Holiday {
     return NullableHolidayType();
   }
 
+  set type(type: HolidayType) {
+    this.holiday.type = type.DTO;
+  }
+
   get owner(): User {
     if (this.holiday.createdBy) {
       return new User(this.holiday.createdBy);
     }
     return NullableUser();
+  }
+
+  get DTO(): HolidayDTO {
+    return this.holiday;
   }
 }
 
@@ -81,12 +101,24 @@ export class Period {
     return getStringFrom(this.period.startDate);
   }
 
+  set startDate(date) {
+    this.period.startDate = date;
+  }
+
   get endDate(): string {
     return getStringFrom(this.period.endDate);
   }
 
+  set endDate(date) {
+    this.period.endDate = date;
+  }
+
   formatDate(t: (key: string) => string): string {
     return `${t("from")} ${this.startDate} ${t("to")} ${this.endDate}`;
+  }
+
+  get DTO(): PeriodDTO {
+    return this.period;
   }
 }
 

@@ -7,13 +7,7 @@
       @close="shouldEditUser = false"
     />
     <section class="flex justify-between items-center">
-      <div class="py-4 text-lg space-x-2">
-        <RouterLink to="/users">
-          <span class="font-bold">users</span>
-        </RouterLink>
-        <span>-</span>
-        <span class="text-gray-600">{{ user?.lastname }}</span>
-      </div>
+      <TwBreadcrumb :breadcrumb="breadcrumb" />
       <TwButton
         :cta="t('edit')"
         :theme="THEME.BLUE"
@@ -46,7 +40,7 @@
 import { useI18n } from "vue-i18n";
 import { THEME } from "@/utils/enum";
 import { useRouter } from "vue-router";
-import { onBeforeMount, ref } from "vue";
+import { computed, onBeforeMount, ref } from "vue";
 import type { User } from "@/domain/user";
 import { useUserStore } from "@/stores/user";
 import EditUser from "@/components/EditUser.vue";
@@ -54,6 +48,8 @@ import TwButton from "@/components/TwButton.vue";
 import InLoading from "@/components/InLoading.vue";
 import DetailItem from "@/components/DetailItem.vue";
 import UserIcon from "@/components/svg/UserIcon.vue";
+import type { Link } from "@/utils/type";
+import TwBreadcrumb from "@/components/TwBreadcrumb.vue";
 
 const props = defineProps<{
   userId?: string;
@@ -62,6 +58,17 @@ const props = defineProps<{
 const user = ref<User>();
 const shouldEditUser = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
+
+const breadcrumb = computed<Link[]>(() => [
+  {
+    name: t("users"),
+    path: "/users",
+  },
+  {
+    name: user.value?.lastname as string,
+    path: "",
+  },
+]);
 
 const router = useRouter();
 const fetchUserDetails = async (): Promise<void> => {
@@ -88,6 +95,7 @@ const { t } = useI18n({
       last_name: "Last name",
       date_of_birth: "Date of birth",
       edit: "Edit",
+      users: "Users",
     },
     fr: {
       email: "E-mail",
@@ -95,6 +103,7 @@ const { t } = useI18n({
       last_name: "Nom",
       date_of_birth: "Date de naissance",
       edit: "Editer",
+      users: "Utilisateurs",
     },
   },
 });

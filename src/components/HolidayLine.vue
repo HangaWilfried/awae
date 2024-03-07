@@ -5,18 +5,20 @@
       hasAccess ? 'grid-cols-6' : 'grid-cols-5',
     ]"
   >
-    <td class="flex flex-col">
-      <span>{{ holiday.owner?.fullName }}</span>
-      <span>{{ holiday.owner?.email }}</span>
+    <td class="flex flex-col gap-2">
+      <span class="break-all font-bold">{{ holiday.owner?.fullName }}</span>
+      <span class="break-all">{{ holiday.owner?.email }}</span>
     </td>
-    <td v-if="hasAccess">{{ t(holiday.type.name?.toLowerCase()) }}</td>
+    <td v-if="hasAccess" class="text-blue-600 font-bold capitalize">
+      {{ t(holiday.type.name?.toLowerCase()) }}
+    </td>
     <td>{{ holiday?.createdAt }}</td>
     <td class="flex items-center justify-between col-span-2">
       <div class="flex flex-col gap-1">
         <span>{{ t("startOn") }}</span>
         <span>{{ holiday.validity?.startDate }}</span>
       </div>
-      <div class="w-3 h-3 rounded-full bg-gray-400 shrink-0"></div>
+      <div class="w-2 h-2 rounded-full border border-gray-800 shrink-0"></div>
       <div class="flex flex-col gap-1">
         <span>{{ t("endOn") }}</span>
         <span>{{ holiday.validity?.endDate }}</span>

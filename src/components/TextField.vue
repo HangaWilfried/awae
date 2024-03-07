@@ -18,6 +18,6 @@ const model = defineModel();
 
 defineProps<{
   label: string;
-  placeholder: string;
+  placeholder?: string;
 }>();
 </script>

@@ -12,7 +12,7 @@ const getAccessToken = async (): Promise<string> => {
   return accessToken === null ? "" : accessToken;
 };
 
-export const customHeaders = async (): Promise<Record<string, string>> => {
+const customHeaders = async (): Promise<Record<string, string>> => {
   const accessToken: string = localStorage.getItem("apiAccessToken") as string;
 
   return {
