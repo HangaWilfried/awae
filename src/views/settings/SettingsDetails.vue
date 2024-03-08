@@ -26,7 +26,7 @@ const props = defineProps<{
 
 const router = useRouter();
 const goToConfigDetails = async (configId: number): Promise<void> => {
-  await router.push(`/settings/${props.id}/${configId}`);
+  await router.push(`/settings/${props.id}/config/${configId}`);
 };
 
 const { t } = useI18n({

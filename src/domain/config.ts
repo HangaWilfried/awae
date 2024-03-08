@@ -51,23 +51,12 @@ export class HolidayConfig {
     this.config.maximumOfDays = days;
   }
 
-  get status(): CONFIG_STATUS {
-    if (this.config.status) {
-      return CONFIG_STATUS[this.config.status as keyof typeof CONFIG_STATUS];
-    }
-    return CONFIG_STATUS.DRAFT;
+  get isActive(): boolean {
+    return this.config.isActivate || false;
   }
 
-  get isDraft(): boolean {
-    return this.status === CONFIG_STATUS.DRAFT;
-  }
-
-  get isApplied(): boolean {
-    return this.status === CONFIG_STATUS.APPLY;
-  }
-
-  get isClosed(): boolean {
-    return this.status === CONFIG_STATUS.CLOSED;
+  get status(): string {
+    return this.isActive ? CONFIG_STATUS.APPLY : CONFIG_STATUS.CLOSED;
   }
 
   get DTO(): HolidayConfigDTO {
