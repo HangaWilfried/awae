@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from "vue";
+import { computed, onBeforeMount, reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -84,6 +84,10 @@ import TextField from "@/components/TextField.vue";
 import PasswordField from "@/components/PasswordField.vue";
 import { useRouter } from "vue-router";
 import { useSessionStore } from "@/stores/session";
+
+onBeforeMount(() => {
+  localStorage.clear();
+});
 
 type State = {
   email: string;

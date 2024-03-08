@@ -38,7 +38,7 @@ const { t } = useI18n({
 </template>
 
 <style scoped>
-.close_border {
+.closed_border {
   @apply border border-red-600 rounded-md px-1.5;
 }
 .closed_circle {
