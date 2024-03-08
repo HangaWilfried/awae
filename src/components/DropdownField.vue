@@ -60,7 +60,7 @@ onBeforeMount(() => {
         />
         <div
           @click="state.shouldDisplayOptions = !state.shouldDisplayOptions"
-          class="hover:bg-blue-50 p-2 rounded-md absolute cursor-pointer top-1 right-2"
+          class="hover:bg-blue-50 p-2 rounded-md absolute cursor-pointer top-1.5 right-2"
         >
           <ArrowUpIcon
             :class="[

@@ -14,14 +14,14 @@
     <div class="pt-7 flex gap-2 items-center">
       <TwButton
         @click="$emit('close')"
-        :cta="t('Cancel')"
+        :cta="t('cancel')"
         :theme="THEME.BORDER_BLUE"
       />
       <TwButton
         :is-loading="isLoading"
         :disabled="!canSave"
         @click="save"
-        :cta="t('Save')"
+        :cta="t('save')"
         :theme="canSave ? THEME.BLUE : THEME.GRAY"
       />
     </div>
