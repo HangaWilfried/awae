@@ -38,34 +38,33 @@ const { t } = useI18n({
 </template>
 
 <style scoped>
-.apply_circle {
-  @apply bg-green-500 border border-green-600 rounded-full w-3 h-3 shrink-0;
+.close_border {
+  @apply border border-red-600 rounded-md px-1.5;
 }
 .closed_circle {
   @apply bg-red-500 border border-red-600 rounded-full w-3 h-3 shrink-0;
 }
-.draft_circle {
-  @apply bg-white border-2 border-gray-800 rounded-full w-3 h-3 shrink-0;
-}
-.apply_text {
-  @apply text-green-600 font-semibold;
-}
 .closed_text {
   @apply text-red-600 font-semibold;
 }
+
 .draft_text {
   @apply text-gray-800 font-semibold;
 }
-
+.draft_circle {
+  @apply bg-white border-2 border-gray-800 rounded-full w-3 h-3 shrink-0;
+}
 .draft_border {
   @apply border border-gray-800 rounded-md px-1.5;
 }
 
+.apply_circle {
+  @apply bg-green-500 border border-green-600 rounded-full w-3 h-3 shrink-0;
+}
 .apply_border {
   @apply border border-green-600 rounded-md px-1.5;
 }
-
-.close_border {
-  @apply border border-red-600 rounded-md px-1.5;
+.apply_text {
+  @apply text-green-600 font-semibold;
 }
 </style>

@@ -79,7 +79,7 @@ const router = createRouter({
           },
         },
         {
-          path: "/settings/:holidayTypeId/:configId",
+          path: "/settings/:holidayTypeId/config/:configId",
           props: true,
           name: "config details page",
           component: () => import("@/views/settings/ConfigDetails.vue"),

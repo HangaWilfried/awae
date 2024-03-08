@@ -95,18 +95,18 @@ onBeforeMount(async () => {
     <section class="bg-white rounded-lg p-7 flex flex-col gap-y-7">
       <section class="flex gap-3 items-center justify-end">
         <TwButton
-          v-if="config.isDraft || config.isClosed"
-          :cta="t('apply')"
-          :theme="THEME.GREEN"
-          @click="applyConfig"
-          :is-loading="isAppliedLoading"
-        />
-        <TwButton
-          v-if="config.isApplied"
+          v-if="config.isActive"
           :cta="t('close')"
           :theme="THEME.RED"
           @click="closeConfig"
           :is-loading="isClosedLoading"
+        />
+        <TwButton
+          v-else
+          :cta="t('apply')"
+          :theme="THEME.GREEN"
+          @click="applyConfig"
+          :is-loading="isAppliedLoading"
         />
       </section>
       <section class="grid grid-cols-2 gap-7">
