@@ -31,29 +31,29 @@
         </div>
         <div class="border-b border-gray-100 flex items-2">
           <span
-            :data-test="t('incoming')"
-            @click="shouldDisplayOnlyICreated = false"
+            v-if="!session.token.isSuperAdmin"
+            :data-test="t('private')"
+            @click="shouldDisplayAllCreated = false"
             :class="[
               'rounded-t min-w-16 text-sm text-center transition duration-500 ease-in px-4 py-2 font-bold cursor-pointer',
-              shouldDisplayOnlyICreated
+              shouldDisplayAllCreated
                 ? 'text-gray-500'
                 : 'text-blue-600 border-b-2 bg-blue-50 border-blue-600',
             ]"
           >
-            {{ t("incoming") }}
+            {{ t("private") }}
           </span>
           <span
-            v-if="!session.token.isSuperAdmin"
-            :data-test="t('private')"
-            @click="shouldDisplayOnlyICreated = true"
+            :data-test="t('incoming')"
+            @click="shouldDisplayAllCreated = true"
             :class="[
               'rounded-t min-w-16 text-sm text-center transition duration-500 ease-in px-4 py-2 font-bold cursor-pointer',
-              shouldDisplayOnlyICreated
+              shouldDisplayAllCreated
                 ? 'text-blue-600 border-b-2 bg-blue-50 border-blue-600'
                 : 'text-gray-500',
             ]"
           >
-            {{ t("private") }}
+            {{ t("incoming") }}
           </span>
         </div>
       </div>
@@ -136,16 +136,17 @@ const closeHolidayDetailsModal = (): void => {
   shouldDisplayModalDetails.value = false;
 };
 
-const shouldDisplayOnlyICreated = ref<boolean>(false);
+const shouldDisplayAllCreated = ref<boolean>(false);
 const hasAccess = computed<boolean>(
-  () => shouldDisplayOnlyICreated.value || session.token.hasAccess,
+  () => !shouldDisplayAllCreated.value || session.token.hasAccess,
 );
 
 const getAllHolidays = async (): Promise<void> => {
   isLoading.value = true;
-  list.value = shouldDisplayOnlyICreated.value
-    ? await holidayStore.getMyHolidays()
-    : await holidayStore.getAllHolidays();
+  list.value =
+    shouldDisplayAllCreated.value || session.token.hasAccess
+      ? await holidayStore.getAllHolidays()
+      : await holidayStore.getMyHolidays();
   isLoading.value = false;
 };
 
@@ -165,7 +166,7 @@ onBeforeMount(async () => {
 });
 
 watch(
-  () => shouldDisplayOnlyICreated.value,
+  () => shouldDisplayAllCreated.value,
   async () => {
     await getAllHolidays();
   },
