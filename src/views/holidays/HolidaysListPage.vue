@@ -150,8 +150,9 @@ const getAllHolidays = async (): Promise<void> => {
 };
 
 const shouldOpenCreateHolidayForm = ref<boolean>(false);
-const closeCreateHolidayForm = () => {
+const closeCreateHolidayForm = async () => {
   shouldOpenCreateHolidayForm.value = false;
+  await getAllHolidays();
 };
 
 const viewDetails = (holidayId: number): void => {
