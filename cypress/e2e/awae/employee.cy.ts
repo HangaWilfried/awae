@@ -15,6 +15,7 @@ describe("Login as user with role employee", () => {
     stubMyHolidays();
     stubAllHolidaysList();
     stubLogin();
+    cy.get("[data-test='In coming']").click();
     cy.wait("@allHolidaysList");
     cy.get("[data-test='Private']").click();
     cy.wait("@myHolidays");

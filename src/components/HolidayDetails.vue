@@ -59,11 +59,11 @@
         v-if="!holiday.isClose"
       >
         <ConfirmStatusChangesCard
-          v-if="actionToInit"
+          v-if="hasAction"
           :action="actionToInit"
           :callback="confirmChangeStatus"
           :canTextReason="canTextReason"
-          @close="actionToInit = undefined"
+          @close="closePopup"
         />
         <template v-if="sessionStore.token.email === holiday.owner.email">
           <TwButton
@@ -131,7 +131,13 @@ const close = (): void => {
 };
 
 const actionToInit = ref<string | undefined>(undefined);
+const hasAction = ref<boolean>(false);
 const canTextReason = ref<boolean>(false);
+
+const closePopup = (): void => {
+  actionToInit.value = undefined;
+  hasAction.value = false;
+};
 
 const setAction = async (
   action: "PUBLISH" | "DRAFT" | "VALIDATE" | "REJECT",
@@ -140,6 +146,7 @@ const setAction = async (
     canTextReason.value = true;
   }
   actionToInit.value = action;
+  hasAction.value = true;
 };
 
 const confirmChangeStatus = async (reason?: Reason): Promise<void> => {
@@ -163,8 +170,9 @@ const confirmChangeStatus = async (reason?: Reason): Promise<void> => {
     default:
       await holidayStore.publishHoliday(holidayId);
   }
-  emit("completed");
   actionToInit.value = undefined;
+  hasAction.value = false;
+  emit("completed");
 };
 
 const { t } = useI18n({

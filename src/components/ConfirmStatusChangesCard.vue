@@ -7,7 +7,7 @@ import TwButton from "@/components/TwButton.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import TextareaField from "@/components/TextareaField.vue";
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "close"): void;
 }>();
 const props = defineProps<{
@@ -44,6 +44,7 @@ const initAction = async (): Promise<void> => {
   reason.why = message.value;
   await props.callback(reason);
   isLoading.value = false;
+  emit("close");
 };
 </script>
 

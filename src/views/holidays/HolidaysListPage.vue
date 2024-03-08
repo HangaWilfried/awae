@@ -131,9 +131,10 @@ const openHolidayDetailsModal = (holidayId: number): void => {
   shouldDisplayModalDetails.value = true;
 };
 
-const closeHolidayDetailsModal = (): void => {
+const closeHolidayDetailsModal = async (): Promise<void> => {
   currentHolidayId.value = undefined;
   shouldDisplayModalDetails.value = false;
+  await getAllHolidays();
 };
 
 const shouldDisplayAllCreated = ref<boolean>(false);
@@ -151,9 +152,8 @@ const getAllHolidays = async (): Promise<void> => {
 };
 
 const shouldOpenCreateHolidayForm = ref<boolean>(false);
-const closeCreateHolidayForm = async () => {
+const closeCreateHolidayForm = (): void => {
   shouldOpenCreateHolidayForm.value = false;
-  await getAllHolidays();
 };
 
 const viewDetails = (holidayId: number): void => {
