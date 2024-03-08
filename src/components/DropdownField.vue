@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeMount, reactive } from "vue";
 import type { ListItem } from "@/utils/interface";
+import ArrowUpIcon from "@/components/svg/ArrowUpIcon.vue";
 
 const props = defineProps<{
   options: ListItem<unknown>[];
@@ -27,7 +28,8 @@ const select = (option: ListItem<unknown>): void => {
 
 const isSameData = (current: unknown, next: unknown): boolean => {
   return (
-    JSON.stringify(current).toLowerCase() === JSON.stringify(next).toLowerCase()
+    JSON.stringify(current)?.toLowerCase() ===
+    JSON.stringify(next)?.toLowerCase()
   );
 };
 
@@ -42,26 +44,41 @@ onBeforeMount(() => {
 
 <template>
   <section class="relative">
-    <label class="flex flex-col" :for="label">
-      <slot :label="label">
-        <span>{{ label }}</span>
-      </slot>
-      <input
-        @click="state.shouldDisplayOptions = !state.shouldDisplayOptions"
-        :value="state.option?.text"
-        :id="label"
-        type="text"
-        readonly
-        class="outline-none border border-gray-300 focus:border-2 focus:border-blue-400 rounded lg:rounded-lg p-2.5"
-      />
-    </label>
+    <div class="flex flex-col">
+      <label :for="label">
+        <slot :label="label">
+          <span>{{ label }}</span>
+        </slot>
+      </label>
+      <div class="grid relative">
+        <input
+          :value="state.option?.text"
+          :id="label"
+          type="text"
+          readonly
+          class="outline-none border border-gray-300 focus:border-2 focus:border-blue-400 rounded lg:rounded-lg p-2.5"
+        />
+        <div
+          @click="state.shouldDisplayOptions = !state.shouldDisplayOptions"
+          class="hover:bg-blue-50 p-2 rounded-md absolute cursor-pointer top-1 right-2"
+        >
+          <ArrowUpIcon
+            :class="[
+              'duration-300 ease-linear transition',
+              state.shouldDisplayOptions ? 'rotate-0' : 'rotate-180',
+            ]"
+          />
+        </div>
+      </div>
+    </div>
     <div
       v-if="state.shouldDisplayOptions"
-      class="flex flex-col shadow border rounded-lg gap-2 bg-white absolute top-20 z-10 w-full p-2 left-0 h-28 overflow-auto"
+      class="flex flex-col shadow-lg p-2 border rounded gap-3 bg-white absolute top-20 z-40 w-full left-0 h-52 overflow-auto"
     >
       <div
+        :data-test="`option-${option.text}`"
         :class="[
-          'p-2 rounded-lg cursor-pointer',
+          'p-2 rounded cursor-pointer',
           isSameData(option, state.option)
             ? 'bg-blue-100 text-blue-800'
             : 'bg-gray-100 text-gray-800',
