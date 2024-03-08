@@ -10,6 +10,9 @@ import { createI18n } from "vue-i18n";
 import { prepareApis } from "@/utils/gateway";
 import { useSessionStore } from "@/stores/session";
 
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+
 const i18n = createI18n({
   locale: navigator.language.split("-")[0],
   legacy: false,
@@ -23,6 +26,8 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(i18n);
 app.use(router);
+
+app.component("VueDatePicker", VueDatePicker);
 
 app.mount("#app");
 
