@@ -75,7 +75,10 @@ export const holidays = [
   {
     id: "1",
     type: {
-      name: "Vacation Leave",
+      id: 5,
+      name: "Congé de Paternité (Paternity Leave)",
+      description:
+        "Temps alloué aux nouveaux pères pour soutenir leur partenaire lors de la naissance d'un enfant.",
     },
     createdAt: "2023-02-16T14:31:57.960Z",
     status: "DRAFT",
@@ -92,7 +95,10 @@ export const holidays = [
   {
     id: "2",
     type: {
-      name: "Sick Leave",
+      id: 2,
+      name: "Congé de Maladie (Sick Leave)",
+      description:
+        "Autorisation d'absence pour des raisons de santé, généralement avec maintien partiel ou total du salaire.",
     },
     title: "Subject: Leave Request",
     description:
@@ -112,7 +118,10 @@ export const holidays = [
   {
     id: "3",
     type: {
-      name: "Personal Leave",
+      id: 3,
+      name: "Congé Personnel (Personal Leave)",
+      description:
+        "Congé utilisé pour des engagements personnels tels que des rendez-vous médicaux, des affaires familiales, etc.",
     },
     createdAt: "2013-02-16T14:31:57.960Z",
     status: "IN_PROGRESS",
@@ -129,7 +138,10 @@ export const holidays = [
   {
     id: "4",
     type: {
-      name: "Maternity Leave",
+      id: 4,
+      name: "Congé de Maternité (Maternity Leave)",
+      description:
+        "Temps accordé aux femmes enceintes avant et après l'accouchement.",
     },
     createdAt: "2013-02-16T14:31:57.960Z",
     status: "VALIDATED",
@@ -146,7 +158,10 @@ export const holidays = [
   {
     id: "5",
     type: {
-      name: "Paternity Leave",
+      id: 5,
+      name: "Congé de Paternité (Paternity Leave)",
+      description:
+        "Temps alloué aux nouveaux pères pour soutenir leur partenaire lors de la naissance d'un enfant.",
     },
     createdAt: "2024-07-16T14:31:57.960Z",
     status: "REFUSED",
@@ -163,7 +178,10 @@ export const holidays = [
   {
     id: "6",
     type: {
-      name: "Unpaid Leave",
+      id: 2,
+      name: "Congé de Maladie (Sick Leave)",
+      description:
+        "Autorisation d'absence pour des raisons de santé, généralement avec maintien partiel ou total du salaire.",
     },
     createdAt: "2024-07-16T14:31:57.960Z",
     status: "PUBLISH",
@@ -180,7 +198,10 @@ export const holidays = [
   {
     id: "1",
     type: {
-      name: "Vacation Leave",
+      id: 3,
+      name: "Congé Personnel (Personal Leave)",
+      description:
+        "Congé utilisé pour des engagements personnels tels que des rendez-vous médicaux, des affaires familiales, etc.",
     },
     createdAt: "2023-02-16T14:31:57.960Z",
     status: "DRAFT",

@@ -164,6 +164,7 @@ const confirmChangeStatus = async (reason?: Reason): Promise<void> => {
       await holidayStore.publishHoliday(holidayId);
   }
   emit("completed");
+  actionToInit.value = undefined;
 };
 
 const { t } = useI18n({

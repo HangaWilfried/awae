@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, reactive } from "vue";
+import { reactive, watchEffect } from "vue";
 import type { ListItem } from "@/utils/interface";
 import ArrowUpIcon from "@/components/svg/ArrowUpIcon.vue";
 
@@ -33,11 +33,12 @@ const isSameData = (current: unknown, next: unknown): boolean => {
   );
 };
 
-onBeforeMount(() => {
-  if (model.value) {
+const effect = watchEffect(() => {
+  if (model.value && props.options.length) {
     state.option = props.options.find((option) =>
       isSameData(option.item, model.value),
     );
+    effect();
   }
 });
 </script>
