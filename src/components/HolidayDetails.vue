@@ -59,9 +59,10 @@
         v-if="!holiday.isClose"
       >
         <ConfirmStatusChangesCard
-          v-if="hasAction"
+          v-if="actionToInit"
+          :is-busy="isStatusChangeLoading"
           :action="actionToInit"
-          :callback="confirmChangeStatus"
+          @try="(reason) => confirmChangeStatus(reason)"
           :canTextReason="canTextReason"
           @close="closePopup"
         />
@@ -130,13 +131,11 @@ const close = (): void => {
   emit("close");
 };
 
-const actionToInit = ref<string | undefined>(undefined);
-const hasAction = ref<boolean>(false);
 const canTextReason = ref<boolean>(false);
+const actionToInit = ref<string | undefined>(undefined);
 
 const closePopup = (): void => {
   actionToInit.value = undefined;
-  hasAction.value = false;
 };
 
 const setAction = async (
@@ -146,33 +145,43 @@ const setAction = async (
     canTextReason.value = true;
   }
   actionToInit.value = action;
-  hasAction.value = true;
+};
+
+const isStatusChangeLoading = ref<boolean>(false);
+
+const performAction = async (callback: Promise<void>): Promise<void> => {
+  await callback;
+  isStatusChangeLoading.value = false;
+  actionToInit.value = undefined;
+  emit("completed");
 };
 
 const confirmChangeStatus = async (reason?: Reason): Promise<void> => {
+  isStatusChangeLoading.value = true;
   const holidayId = +props.holiday.id;
   switch (actionToInit.value) {
     case "DRAFT":
-      await holidayStore.draftHoliday(holidayId);
+      await performAction(holidayStore.draftHoliday(holidayId));
       return;
     case "VALIDATE":
-      await holidayStore.validateHoliday({
-        holidayId,
-        reason,
-      });
+      await performAction(
+        holidayStore.validateHoliday({
+          holidayId,
+          reason,
+        }),
+      );
       return;
     case "REJECT":
-      await holidayStore.rejectHoliday({
-        holidayId,
-        reason,
-      });
+      await performAction(
+        holidayStore.rejectHoliday({
+          holidayId,
+          reason,
+        }),
+      );
       return;
     default:
-      await holidayStore.publishHoliday(holidayId);
+      await performAction(holidayStore.publishHoliday(holidayId));
   }
-  actionToInit.value = undefined;
-  hasAction.value = false;
-  emit("completed");
 };
 
 const { t } = useI18n({

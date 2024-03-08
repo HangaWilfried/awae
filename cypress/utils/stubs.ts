@@ -213,6 +213,30 @@ export const utilsMocks = () => {
     );
   };
 
+  const stubUnPublishHoliday = () => {
+    cy.intercept(
+      {
+        url: baseUrl + "unpublished/6",
+        method: "PUT",
+      },
+      {
+        statusCode: 204,
+      },
+    );
+  };
+
+  const stubPublishHoliday = () => {
+    cy.intercept(
+      {
+        url: baseUrl + "publish/1",
+        method: "PUT",
+      },
+      {
+        statusCode: 204,
+      },
+    );
+  };
+
   return {
     stubLogin,
     stubMyHolidays,
@@ -229,5 +253,7 @@ export const utilsMocks = () => {
     stubConfigsByHolidayTypeById,
     stubHolidayTypeById,
     stubConfigById,
+    stubUnPublishHoliday,
+    stubPublishHoliday,
   };
 };

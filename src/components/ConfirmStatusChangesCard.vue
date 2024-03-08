@@ -9,9 +9,11 @@ import TextareaField from "@/components/TextareaField.vue";
 
 const emit = defineEmits<{
   (e: "close"): void;
+  (e: "try", id: Reason): void;
 }>();
-const props = defineProps<{
-  callback: (reason?: Reason) => Promise<void>;
+
+defineProps<{
+  isBusy: boolean;
   action: string;
   canTextReason: boolean;
 }>();
@@ -35,16 +37,11 @@ const { t } = useI18n({
   },
 });
 
-const isLoading = ref<boolean>(false);
 const message = ref<string>("");
-
 const initAction = async (): Promise<void> => {
-  isLoading.value = true;
   const reason = NullableReason();
   reason.why = message.value;
-  await props.callback(reason);
-  isLoading.value = false;
-  emit("close");
+  emit("try", reason);
 };
 </script>
 
@@ -67,7 +64,7 @@ const initAction = async (): Promise<void> => {
         :cta="t('yes')"
         :theme="THEME.LIGHT_BLUE"
         @click="initAction"
-        :isLoading="isLoading"
+        :isLoading="isBusy"
       />
     </div>
   </section>

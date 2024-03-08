@@ -7,6 +7,8 @@ const {
   stubAllHolidaysList,
   stubHolidayDetails,
   stubHolidaysTypes,
+  stubUnPublishHoliday,
+  stubPublishHoliday,
 } = utilsMocks();
 
 describe("Login as user with role employee", () => {
@@ -30,5 +32,7 @@ describe("Login as user with role employee", () => {
     stubHolidaysTypes();
     cy.get("[data-test='closeModalBtn']").click();
     cy.get("[data-test='+ Add new request']").click();
+    stubUnPublishHoliday();
+    stubPublishHoliday();
   });
 });
