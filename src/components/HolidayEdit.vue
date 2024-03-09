@@ -8,6 +8,9 @@
       :options="holidaysTypes"
       :label="t('type')"
     />
+    <Transition name="slide-fade">
+      <HowItWorks :config="config" v-if="!state.type.isNull" />
+    </Transition>
     <DateField v-model="state.period.start" :label="t('from')" />
     <DateField v-model="state.period.end" :label="t('to')" />
     <TextareaField v-model="state.description" :label="t('description')" />
@@ -31,18 +34,23 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { THEME } from "@/utils/enum";
-import { computed, onBeforeMount, reactive, ref } from "vue";
+import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 
 import { useHolidayStore } from "@/stores/holiday";
 import { useHolidayConfigStore } from "@/stores/config";
 
 import { HolidayTypeItem } from "@/utils/interface";
-import type { HolidayType } from "@/domain/config";
+import {
+  HolidayConfig,
+  type HolidayType,
+  NullableHolidayConfig,
+} from "@/domain/config";
 import { type Holiday, NullablePeriod } from "@/domain/holiday";
 
 import TwButton from "@/components/TwButton.vue";
 import TextField from "@/components/TextField.vue";
 import DateField from "@/components/DateField.vue";
+import HowItWorks from "@/components/HowItWorks.vue";
 import TextareaField from "@/components/TextareaField.vue";
 import DropdownField from "@/components/DropdownField.vue";
 import { required } from "@vuelidate/validators";
@@ -52,10 +60,10 @@ const holidayStore = useHolidayStore();
 const configStore = useHolidayConfigStore();
 
 const holidaysTypes = ref<HolidayTypeItem[]>([]);
-onBeforeMount(async () => {
+const getHolidayTypes = async (): Promise<void> => {
   const types = await configStore.getAllHolidaysTypes();
   holidaysTypes.value = types.map((type) => new HolidayTypeItem(type));
-});
+};
 
 const emit = defineEmits<{
   (e: "close"): void;
@@ -109,6 +117,20 @@ const state = reactive<State>({
   },
 });
 
+const config = ref<HolidayConfig>(NullableHolidayConfig());
+const getConfigDetails = async (): Promise<void> => {
+  config.value = await configStore.getActivatedConfigByHolidayType(
+    +state.type.id,
+  );
+};
+
+watch(
+  () => state.type.id,
+  async () => {
+    await getConfigDetails();
+  },
+);
+
 const rules = computed(() => ({
   type: {
     required,
@@ -153,4 +175,24 @@ const save = async (): Promise<void> => {
   isLoading.value = false;
   emit("completed");
 };
+
+onBeforeMount(async () => {
+  await Promise.all([getHolidayTypes(), getConfigDetails()]);
+});
 </script>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>
