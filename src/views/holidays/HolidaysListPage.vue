@@ -1,7 +1,7 @@
 <template>
   <section class="p-4 space-y-7">
     <AddHoliday
-      @getDetails="viewDetails"
+      @getDetails="(value) => viewDetails(value)"
       @close="closeCreateHolidayForm"
       v-if="shouldOpenCreateHolidayForm"
     />
