@@ -145,7 +145,7 @@ const hasAccess = computed<boolean>(
 const getAllHolidays = async (): Promise<void> => {
   isLoading.value = true;
   list.value =
-    shouldDisplayAllCreated.value || session.token.hasAccess
+    shouldDisplayAllCreated.value || session.token.isSuperAdmin
       ? await holidayStore.getAllHolidays()
       : await holidayStore.getMyHolidays();
   isLoading.value = false;
