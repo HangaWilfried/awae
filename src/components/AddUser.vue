@@ -18,11 +18,7 @@
           placeholder=""
           v-model="user.firstname"
         />
-        <TextField
-          :label="t('dateOfBirth')"
-          placeholder=""
-          v-model="user.dateOfBirth"
-        />
+        <DateField v-model="user.dateOfBirth" :label="t('dateOfBirth')" />
         <div class="py-4" v-if="sessionStore.token.isSuperAdmin">
           <CheckboxField
             :label="t('setAdmin')"
@@ -62,6 +58,7 @@ import { useUserStore } from "@/stores/user";
 import { User } from "@/domain/user";
 import CloseButton from "@/components/CloseButton.vue";
 import { useSessionStore } from "@/stores/session";
+import DateField from "@/components/DateField.vue";
 
 const userStore = useUserStore();
 const sessionStore = useSessionStore();

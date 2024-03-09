@@ -14,24 +14,30 @@
       />
     </section>
     <InLoading v-if="isLoading" />
-    <section v-else class="bg-white p-4 border rounded-md">
+    <section v-else>
       <table class="w-full flex flex-col">
         <thead>
-          <tr class="grid grid-cols-4 border-dashed border-b-[1.5px] pt-0 p-4">
+          <tr
+            class="grid grid-cols-4 rounded px-2 py-1 bg-gray-200 text-gray-700"
+          >
             <th class="text-left" v-for="column in columns" :key="column">
               {{ t(column.toLowerCase()) }}
             </th>
           </tr>
         </thead>
-        <tbody class="space-y-2">
+        <tbody class="divide-y divide-gray-100">
           <tr
-            class="row"
+            class="cursor-pointer grid grid-cols-4 px-3 py-2"
             :key="row.id"
             v-for="row in state.rows"
             :data-test="`user-${row.id}`"
             @click="goToUserDetailsPage(row.id)"
           >
-            <td v-for="column in columns" :key="column">
+            <td
+              class="first:text-blue-800 first:font-medium"
+              v-for="column in columns"
+              :key="column"
+            >
               {{ row.getTextFor(column) }}
             </td>
           </tr>
@@ -103,9 +109,3 @@ const { t } = useI18n({
   },
 });
 </script>
-
-<style scoped>
-.row {
-  @apply cursor-pointer grid grid-cols-4 px-3 py-2 rounded overflow-auto bg-white even:bg-gray-100 even:text-gray-900;
-}
-</style>
