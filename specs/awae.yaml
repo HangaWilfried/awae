@@ -651,7 +651,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/HolidayConfigDTO'
   /config/holiday/{holidayConfigId}/activate:
@@ -840,6 +839,8 @@ components:
         isActivated:
           type: boolean
           description: the value is 'true' if the employee insert an existing email
+        role:
+          $ref: '#/components/schemas/RoleDTO'
     HolidayDTO:
       type: object
       properties:
@@ -942,3 +943,9 @@ components:
       properties:
         value:
           type: string
+    RoleDTO:
+      type: string
+      enum:
+        - EMPLOYEE
+        - ADMIN
+        - SUPER_ADMIN

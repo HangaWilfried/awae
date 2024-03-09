@@ -13,6 +13,7 @@ export enum TABLE_ROW {
   FIRST_NAME = "FIRST_NAME",
   LAST_NAME = "LAST_NAME",
   DATE_OF_BIRTH = "DATE_OF_BIRTH",
+  ROLE = "ROLE",
 }
 
 export enum ROLE {

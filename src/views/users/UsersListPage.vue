@@ -18,7 +18,7 @@
       <table class="w-full flex flex-col text-xs">
         <thead>
           <tr
-            class="grid grid-cols-4 rounded px-2 py-1 bg-gray-200 text-gray-700"
+            class="grid grid-cols-5 rounded px-2 py-1 bg-gray-200 text-gray-700"
           >
             <th class="text-left" v-for="column in columns" :key="column">
               {{ t(column.toLowerCase()) }}
@@ -27,7 +27,7 @@
         </thead>
         <tbody class="divide-y divide-gray-100">
           <tr
-            class="cursor-pointer grid grid-cols-4 px-3 py-2"
+            class="cursor-pointer grid grid-cols-5 px-3 py-2"
             :key="row.id"
             v-for="row in state.rows"
             :data-test="`user-${row.id}`"
@@ -38,7 +38,16 @@
               v-for="column in columns"
               :key="column"
             >
-              {{ row.getTextFor(column) }}
+              <span
+                :class="{
+                  'text-green-600': row.getTextFor(column) === 'super admin',
+                  'text-purple-600': row.getTextFor(column) === 'admin',
+                  'text-orange-600': row.getTextFor(column) === 'employee',
+                }"
+                v-if="column === 'ROLE'"
+                >{{ row.getTextFor(column) }}</span
+              >
+              <span v-else>{{ row.getTextFor(column) }}</span>
             </td>
           </tr>
         </tbody>

@@ -1,5 +1,5 @@
-import type { EmployeeDTO } from "@/services/awae";
 import { TABLE_ROW } from "@/utils/enum";
+import { RoleDTO, type EmployeeDTO } from "@/services/awae";
 
 export class User {
   isNull: boolean;
@@ -40,7 +40,20 @@ export class User {
     return this.toString(this.user.dateOfBirth);
   }
 
-  getTextFor(label: TABLE_ROW): string {
+  get role(): string {
+    switch (this.user.role) {
+      case RoleDTO.ADMIN:
+        return "admin";
+      case RoleDTO.EMPLOYEE:
+        return "employee";
+      case RoleDTO.SUPER_ADMIN:
+        return "super admin";
+      default:
+        return "";
+    }
+  }
+
+  getTextFor(label: string): string {
     switch (label) {
       case TABLE_ROW.EMAIL:
         return this.email;
@@ -50,6 +63,8 @@ export class User {
         return this.lastname;
       case TABLE_ROW.DATE_OF_BIRTH:
         return this.dateOfBirth;
+      case TABLE_ROW.ROLE:
+        return this.role;
       default:
         return "-";
     }
