@@ -149,44 +149,44 @@ const setAction = async (
 
 const isStatusChangeLoading = ref<boolean>(false);
 
-const performAction = async (callback: Promise<void>): Promise<void> => {
-  await callback;
+const confirmChangeStatus = async (reason?: Reason): Promise<void> => {
+  isStatusChangeLoading.value = true;
+  const holidayId = +props.holiday.id;
+
+  if (actionToInit.value === "DRAFT") {
+    await holidayStore.draftHoliday(holidayId);
+  }
+  if (actionToInit.value === "PUBLISH") {
+    await holidayStore.publishHoliday(holidayId);
+  }
+  if (actionToInit.value === "REJECT") {
+    await holidayStore.rejectHoliday({
+      holidayId,
+      reason,
+    });
+  }
+  if (actionToInit.value === "VALIDATE") {
+    await holidayStore.validateHoliday({
+      holidayId,
+      reason,
+    });
+  }
+
   isStatusChangeLoading.value = false;
   actionToInit.value = undefined;
   emit("completed");
 };
 
-const confirmChangeStatus = async (reason?: Reason): Promise<void> => {
-  isStatusChangeLoading.value = true;
-  const holidayId = +props.holiday.id;
-  switch (actionToInit.value) {
-    case "DRAFT":
-      await performAction(holidayStore.draftHoliday(holidayId));
-      return;
-    case "VALIDATE":
-      await performAction(
-        holidayStore.validateHoliday({
-          holidayId,
-          reason,
-        }),
-      );
-      return;
-    case "REJECT":
-      await performAction(
-        holidayStore.rejectHoliday({
-          holidayId,
-          reason,
-        }),
-      );
-      return;
-    default:
-      await performAction(holidayStore.publishHoliday(holidayId));
-  }
-};
-
 const { t } = useI18n({
   messages: {
     en: {
+      owner: "Owner",
+      title: "Titre",
+      type: "Type",
+      status: "Status",
+      period: "Period",
+      createdAt: "Created at",
+      description: "Description",
       holidayDetails: "Holiday details",
       from: "From",
       to: "To",
@@ -197,6 +197,13 @@ const { t } = useI18n({
       reject: "Reject",
     },
     fr: {
+      owner: "Sous la demande de",
+      title: "Titre",
+      type: "Type",
+      status: "Status",
+      period: "Période",
+      createdAt: "Date de création",
+      description: "Description",
       holidayDetails: "Détails du congé",
       from: "Du",
       to: "Au",
