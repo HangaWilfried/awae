@@ -27,7 +27,7 @@ const configStore = useHolidayConfigStore();
 
 const emit = defineEmits<{
   (e: "close"): void;
-  (e: "getDetails", id: number): void;
+  (e: "refresh"): void;
 }>();
 
 const { t } = useI18n({
@@ -89,7 +89,7 @@ const createHoliday = async (): Promise<void> => {
     holiday: holiday as HolidayForm,
   });
   if (holidayId) {
-    emit("getDetails", holidayId);
+    emit("refresh");
   }
   isLoading.value = false;
 };

@@ -1,7 +1,7 @@
 <template>
   <section class="p-4 space-y-7">
     <AddHoliday
-      @getDetails="(value) => viewDetails(value)"
+      @refresh="getAllHolidays"
       @close="closeCreateHolidayForm"
       v-if="shouldOpenCreateHolidayForm"
     />
@@ -143,6 +143,7 @@ const hasAccess = computed<boolean>(
 );
 
 const getAllHolidays = async (): Promise<void> => {
+  shouldOpenCreateHolidayForm.value = false;
   isLoading.value = true;
   list.value =
     shouldDisplayAllCreated.value || session.token.isSuperAdmin
@@ -153,11 +154,6 @@ const getAllHolidays = async (): Promise<void> => {
 
 const shouldOpenCreateHolidayForm = ref<boolean>(false);
 const closeCreateHolidayForm = (): void => {
-  shouldOpenCreateHolidayForm.value = false;
-};
-
-const viewDetails = (holidayId: number): void => {
-  currentHolidayId.value = holidayId;
   shouldOpenCreateHolidayForm.value = false;
 };
 

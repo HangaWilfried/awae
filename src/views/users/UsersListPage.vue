@@ -15,7 +15,7 @@
     </section>
     <InLoading v-if="isLoading" />
     <section v-else>
-      <table class="w-full flex flex-col">
+      <table class="w-full flex flex-col text-xs">
         <thead>
           <tr
             class="grid grid-cols-4 rounded px-2 py-1 bg-gray-200 text-gray-700"
