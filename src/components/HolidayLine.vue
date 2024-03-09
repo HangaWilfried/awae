@@ -10,7 +10,7 @@
       <span class="break-all">{{ holiday.owner?.email }}</span>
     </td>
     <td v-if="hasAccess" class="text-blue-600 font-bold capitalize">
-      {{ t(holiday.type.name?.toLowerCase()) }}
+      {{ holiday.type?.name }}
     </td>
     <td>{{ holiday?.createdAt }}</td>
     <td class="flex items-center justify-between col-span-2">

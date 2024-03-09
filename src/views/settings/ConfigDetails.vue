@@ -14,8 +14,8 @@ const configStore = useHolidayConfigStore();
 const config = ref<HolidayConfig>(NullableHolidayConfig());
 
 const props = defineProps<{
-  configId?: number;
-  holidayTypeId?: number;
+  configId: string;
+  holidayTypeId: string;
 }>();
 
 const { t } = useI18n({
@@ -27,9 +27,11 @@ const { t } = useI18n({
       status: "Status",
       configs: "Configuration",
       description: "Description",
-      estimateHours: "Number of times :",
-      minimumDays: "Minimum days :",
-      maximumDays: "Maximum days :",
+      estimateHours: "Number of times granted per year :",
+      minimumDays: "Minimum days granted :",
+      maximumDays: "Maximum days granted :",
+      times: "{time} time(s)",
+      days: "{day} day(s)",
     },
     fr: {
       apply: "Applique",
@@ -38,9 +40,11 @@ const { t } = useI18n({
       status: "Status",
       configs: "Configuration",
       description: "Description",
-      estimateHours: "Nombre d'heures :",
-      minimumDays: "Nombre de jours au minimum :",
-      maximumDays: "Nombre de jours au maximum :",
+      estimateHours: "Nombre de fois accordé par an :",
+      minimumDays: "Nombre de jours au minimum autorisé :",
+      maximumDays: "Nombre de jours au maximum autorisé :",
+      times: "{time} fois",
+      days: "{day} jour(s)",
     },
   },
 });
@@ -51,21 +55,21 @@ const isClosedLoading = ref<boolean>(false);
 
 const closeConfig = async (): Promise<void> => {
   isClosedLoading.value = true;
-  await configStore.deactivateConfig(props.configId as number);
+  await configStore.deactivateConfig(+props.configId);
   isClosedLoading.value = false;
   await fetchDetails();
 };
 
 const applyConfig = async (): Promise<void> => {
   isAppliedLoading.value = true;
-  await configStore.activeConfig(props.configId as number);
+  await configStore.activeConfig(+props.configId);
   isAppliedLoading.value = false;
   await fetchDetails();
 };
 
 const fetchDetails = async (): Promise<void> => {
   isDetailsLoading.value = true;
-  config.value = await configStore.getConfigById(props.configId as number);
+  config.value = await configStore.getConfigById(+props.configId);
   isDetailsLoading.value = false;
 };
 
@@ -112,15 +116,15 @@ onBeforeMount(async () => {
       <section class="grid grid-cols-2 gap-7">
         <div class="flex gap-4">
           <span class="text-gray-950 font-bold">{{ t("estimateHours") }}</span>
-          <span>{{ config.numberOfTime }}</span>
+          <span>{{ t("times", { time: config.numberOfTime }) }}</span>
         </div>
         <div class="flex gap-4">
           <span class="text-gray-950 font-bold">{{ t("minimumDays") }}</span>
-          <span>{{ config.minimumOfDays }}</span>
+          <span>{{ t("days", { day: config.minimumOfDays }) }}</span>
         </div>
         <div class="flex gap-4">
           <span class="text-gray-950 font-bold">{{ t("maximumDays") }}</span>
-          <span>{{ config.maximumOfDays }}</span>
+          <span>{{ t("days", { day: config.maximumOfDays }) }}</span>
         </div>
         <div class="flex gap-4">
           <span class="text-gray-950 font-bold">{{ t("status") }}</span>

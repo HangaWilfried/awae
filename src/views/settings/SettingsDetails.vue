@@ -21,7 +21,7 @@ const holidayType = ref<HolidayType>(NullableHolidayType());
 const holidayConfigs = ref<Grid[]>([]);
 
 const props = defineProps<{
-  id?: number;
+  id: string;
 }>();
 
 const router = useRouter();
@@ -91,8 +91,8 @@ const fetchSettingsDetails = async (): Promise<void> => {
   isLoading.value = true;
   close();
   const [type, configs] = await Promise.all([
-    configStore.getHolidayTypeById(props?.id as number),
-    configStore.getAllConfigsByHolidayType(props?.id as number),
+    configStore.getHolidayTypeById(+props.id),
+    configStore.getAllConfigsByHolidayType(+props.id),
   ]);
 
   holidayType.value = type;

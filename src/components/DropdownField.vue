@@ -45,7 +45,7 @@ const effect = watchEffect(() => {
 
 <template>
   <section class="relative">
-    <div class="flex flex-col">
+    <div class="flex flex-col gap-0.5 lg:gap-2">
       <label :for="label">
         <slot :label="label">
           <span>{{ label }}</span>

@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-0.5 lg:gap-2">
     <label for="reason">{{ label }} </label>
     <textarea
       :data-test="`${label}Field`"
