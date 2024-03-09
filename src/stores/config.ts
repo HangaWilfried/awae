@@ -114,6 +114,22 @@ export const useHolidayConfigStore = defineStore("config", () => {
     }
   };
 
+  const getActivatedConfigByHolidayType = async (
+    holidayTypeId: number,
+  ): Promise<HolidayConfig> => {
+    let config = NullableHolidayConfig();
+    try {
+      const response =
+        await HolidayConfigService.getActivatedHolidayConfigByHolidayTypeId({
+          holidayTypeId,
+        });
+      config = new HolidayConfig(response);
+    } catch (error) {
+      console.log(error);
+    }
+    return config;
+  };
+
   return {
     createConfig,
     getAllConfigs,
@@ -124,5 +140,6 @@ export const useHolidayConfigStore = defineStore("config", () => {
     getHolidayTypeById,
     getAllHolidaysTypes,
     getAllConfigsByHolidayType,
+    getActivatedConfigByHolidayType,
   };
 });

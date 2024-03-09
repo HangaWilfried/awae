@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { onBeforeMount, reactive, ref } from "vue";
+import { onBeforeMount, reactive, ref, watch } from "vue";
 import type { HolidayForm } from "@/domain/holiday";
 
 import { THEME } from "@/utils/enum";
 import { useHolidayStore } from "@/stores/holiday";
 import { HolidayTypeItem } from "@/utils/interface";
-import { NullableHolidayType } from "@/domain/config";
+import {
+  HolidayConfig,
+  NullableHolidayConfig,
+  NullableHolidayType,
+} from "@/domain/config";
 import { useHolidayConfigStore } from "@/stores/config";
 
 import TwButton from "@/components/TwButton.vue";
@@ -16,6 +20,7 @@ import DropdownField from "@/components/DropdownField.vue";
 import TextareaField from "@/components/TextareaField.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import ModalWrapper from "@/components/ModalWrapper.vue";
+import HowItWorks from "@/components/HowItWorks.vue";
 
 const holidayStore = useHolidayStore();
 const configStore = useHolidayConfigStore();
@@ -64,6 +69,16 @@ const holiday = reactive<HolidayForm>({
   description: "",
 });
 
+const config = ref<HolidayConfig>(NullableHolidayConfig());
+watch(
+  () => holiday.type.id,
+  async () => {
+    config.value = await configStore.getActivatedConfigByHolidayType(
+      +holiday.type.id,
+    );
+  },
+);
+
 const isLoading = ref<boolean>(false);
 const close = (): void => {
   emit("close");
@@ -96,6 +111,9 @@ const createHoliday = async (): Promise<void> => {
           :options="holidaysTypes"
           :label="t('type')"
         />
+        <Transition name="slide-fade">
+          <HowItWorks :config="config" v-if="!config.isNull" />
+        </Transition>
         <DateField v-model="holiday.from" :label="t('from')" />
         <DateField v-model="holiday.to" :label="t('to')" />
         <TextareaField
@@ -118,3 +136,19 @@ const createHoliday = async (): Promise<void> => {
     </section>
   </ModalWrapper>
 </template>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+</style>

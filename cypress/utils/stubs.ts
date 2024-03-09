@@ -237,6 +237,19 @@ export const utilsMocks = () => {
     );
   };
 
+  const stubActivatedHolidayConfigByHolidayType = (): void => {
+    cy.intercept(
+      {
+        url: baseUrl + "holiday-type/1/config/active",
+        method: "GET",
+      },
+      {
+        statusCode: 200,
+        body: configs[2],
+      },
+    ).as("activeConfig");
+  };
+
   return {
     stubLogin,
     stubMyHolidays,
@@ -255,5 +268,6 @@ export const utilsMocks = () => {
     stubConfigById,
     stubUnPublishHoliday,
     stubPublishHoliday,
+    stubActivatedHolidayConfigByHolidayType,
   };
 };
