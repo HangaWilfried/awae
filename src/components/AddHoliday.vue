@@ -21,6 +21,7 @@ import TextareaField from "@/components/TextareaField.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import ModalWrapper from "@/components/ModalWrapper.vue";
 import HowItWorks from "@/components/HowItWorks.vue";
+import { getUTC } from "@/utils/clock";
 
 const holidayStore = useHolidayStore();
 const configStore = useHolidayConfigStore();
@@ -85,6 +86,10 @@ const close = (): void => {
 };
 const createHoliday = async (): Promise<void> => {
   isLoading.value = true;
+
+  holiday.from = getUTC(holiday.from);
+  holiday.to = getUTC(holiday.to);
+
   const holidayId = await holidayStore.createHoliday({
     holiday: holiday as HolidayForm,
   });

@@ -55,6 +55,7 @@ import TextareaField from "@/components/TextareaField.vue";
 import DropdownField from "@/components/DropdownField.vue";
 import { required } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
+import { getUTC } from "@/utils/clock";
 
 const holidayStore = useHolidayStore();
 const configStore = useHolidayConfigStore();
@@ -163,8 +164,8 @@ const save = async (): Promise<void> => {
   const holiday = props.holiday;
 
   const period = NullablePeriod();
-  period.endDate = state.period.end;
-  period.startDate = state.period.start;
+  period.endDate = getUTC(state.period.end);
+  period.startDate = getUTC(state.period.start);
 
   holiday.validity = period;
   holiday.title = state.title;

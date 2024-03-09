@@ -1,5 +1,6 @@
 import { TABLE_ROW } from "@/utils/enum";
 import { RoleDTO, type EmployeeDTO } from "@/services/awae";
+import { getLocalDateTime } from "@/utils/clock";
 
 export class User {
   isNull: boolean;
@@ -62,7 +63,7 @@ export class User {
       case TABLE_ROW.LAST_NAME:
         return this.lastname;
       case TABLE_ROW.DATE_OF_BIRTH:
-        return this.dateOfBirth;
+        return getLocalDateTime(this.dateOfBirth);
       case TABLE_ROW.ROLE:
         return this.role;
       default:

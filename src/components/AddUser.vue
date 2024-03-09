@@ -59,6 +59,7 @@ import { User } from "@/domain/user";
 import CloseButton from "@/components/CloseButton.vue";
 import { useSessionStore } from "@/stores/session";
 import DateField from "@/components/DateField.vue";
+import { getUTC } from "@/utils/clock";
 
 const userStore = useUserStore();
 const sessionStore = useSessionStore();
@@ -101,6 +102,7 @@ const createUser = async (): Promise<void> => {
   isLoading.value = true;
   const isFormReady = await v$.value.$validate();
   if (isFormReady) {
+    user.dateOfBirth = getUTC(user.dateOfBirth);
     const payload = new User(user);
     user.isAdmin
       ? await userStore.createAdmin(payload)

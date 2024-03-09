@@ -30,3 +30,10 @@ export enum HOLIDAY_STATUS {
   IN_PROGRESS = "IN_PROGRESS",
   PASSED = "PASSED",
 }
+
+export enum DATE_FORMAT {
+  YEAR_MONTH_DAY = "YYYY-MM-DD",
+  DATE_TIME = "YYYY-MM-DD h:mm A",
+  DAY_MONTH_YEAR = "DD/MM/YYYY",
+  YEAR = "YYYY",
+}
