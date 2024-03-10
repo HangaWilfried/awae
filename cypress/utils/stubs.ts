@@ -109,7 +109,8 @@ export const utilsMocks = () => {
     cy.get("[data-test='+ Add']").should("be.visible").click();
     cy.get("[data-test='last nameField']").type("Hanga Lagoue");
     cy.get("[data-test='first nameField']").type("Wilfried Junior");
-    cy.get("[data-test='date of birthField']").type("27/05/2000");
+    cy.get(".dp__input").click();
+    cy.get(".dp__cell_inner").eq(2).click();
     if (role === ROLE.SUPER_ADMIN) {
       cy.get("[data-test='Set as admin']").click();
     }
@@ -250,6 +251,19 @@ export const utilsMocks = () => {
     ).as("activeConfig");
   };
 
+  const stubHolidayCreate = (): void => {
+    cy.intercept(
+      {
+        url: baseUrl + "holiday",
+        method: "POST",
+      },
+      {
+        statusCode: 201,
+        body: 1,
+      },
+    );
+  };
+
   return {
     stubLogin,
     stubMyHolidays,
@@ -269,5 +283,6 @@ export const utilsMocks = () => {
     stubUnPublishHoliday,
     stubPublishHoliday,
     stubActivatedHolidayConfigByHolidayType,
+    stubHolidayCreate,
   };
 };

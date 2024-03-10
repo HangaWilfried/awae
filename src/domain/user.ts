@@ -48,7 +48,7 @@ export class User {
       case RoleDTO.EMPLOYEE:
         return "employee";
       case RoleDTO.SUPER_ADMIN:
-        return "super admin";
+        return "superAdmin";
       default:
         return "";
     }

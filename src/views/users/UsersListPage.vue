@@ -6,7 +6,14 @@
       @close="shouldDisplayAddUserModal = false"
     />
     <section class="flex justify-between items-center">
-      <h2 class="font-bold text-xl">{{ t("users") }}</h2>
+      <h2 class="flex flex-col font-sans font-medium">
+        <span class="text-blue-800 text-xl">
+          {{ t("users", { total: state.rows.length }) }}
+        </span>
+        <span class="text-xs text-gray-800 font-bold">
+          {{ t("description") }}
+        </span>
+      </h2>
       <TwButton
         :cta="t('addUser')"
         :theme="THEME.BLUE"
@@ -39,14 +46,18 @@
               :key="column"
             >
               <span
-                :class="{
-                  'text-green-600': row.getTextFor(column) === 'super admin',
-                  'text-purple-600': row.getTextFor(column) === 'admin',
-                  'text-orange-600': row.getTextFor(column) === 'employee',
-                }"
+                :class="[
+                  {
+                    'text-green-600': row.getTextFor(column) === 'superAdmin',
+                    'text-purple-600': row.getTextFor(column) === 'admin',
+                    'text-orange-600': row.getTextFor(column) === 'employee',
+                  },
+                  'font-bold',
+                ]"
                 v-if="column === 'ROLE'"
-                >{{ row.getTextFor(column) }}</span
               >
+                {{ t(row.getTextFor(column)) }}
+              </span>
               <span v-else>{{ row.getTextFor(column) }}</span>
             </td>
           </tr>
@@ -105,7 +116,11 @@ const { t } = useI18n({
       last_name: "Last name",
       date_of_birth: "Date of birth",
       addUser: "+ Add",
-      users: "List of admins",
+      users: "System users ({total})",
+      description: "Here you will find the list of system users.",
+      admin: "Admin",
+      employee: "Employee",
+      superAdmin: "Owner",
     },
     fr: {
       email: "Email",
@@ -113,7 +128,11 @@ const { t } = useI18n({
       last_name: "Nom",
       date_of_birth: "Date de naissance",
       addUser: "+ Ajouter",
-      users: "Liste des administrateurs",
+      users: "Utilisateurs du système ({total})",
+      description: "Ici, vous trouverez la liste des utilisateurs du système.",
+      admin: "Administrateur",
+      employee: "Employé",
+      superAdmin: "Propriétaire",
     },
   },
 });

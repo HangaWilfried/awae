@@ -4,8 +4,11 @@ import utc from "dayjs/plugin/utc";
 
 dayjs.extend(utc);
 
-export const getUTC = (date?: string): string => {
-  return dayjs(date).utc().format();
+export const getUTC = (
+  date: string,
+  format = DATE_FORMAT.YEAR_MONTH_DAY,
+): string => {
+  return dayjs(date).utc().format(format);
 };
 
 export const getLocalDateTime = (
