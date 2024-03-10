@@ -4,6 +4,7 @@ const {
   stubLogin,
   stubAccessToken,
   stubMyHolidays,
+  stubHolidayCreate,
   stubAllHolidaysList,
   stubHolidayDetails,
   stubHolidaysTypes,
@@ -36,5 +37,15 @@ describe("Login as user with role employee", () => {
     stubUnPublishHoliday();
     stubPublishHoliday();
     stubActivatedHolidayConfigByHolidayType();
+    stubHolidayCreate();
+    cy.get("[data-test='titleField']").type("Holiday request");
+    cy.get("[data-test='DescriptionField']").type("I really need it");
+    cy.get("[data-test='display-Type-list']").click();
+    cy.get("[data-test='option-Congé Annuel (Vacation Leave)']").click();
+    cy.get(".dp__input").eq(1).click();
+    cy.get(".dp__cell_inner").eq(2).click();
+    cy.get(".dp__input").eq(0).click();
+    cy.get(".dp__cell_inner").eq(6).click();
+    cy.get("[data-test='Create']").click();
   });
 });

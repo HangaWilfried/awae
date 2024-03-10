@@ -5,6 +5,7 @@ export const users = [
     firstname: "Bret",
     email: "Sincere@april.biz",
     dateOfBirth: "2024-02-16T14:31:57.960Z",
+    role: "SUPER_ADMIN",
   },
   {
     id: 2,
@@ -12,6 +13,7 @@ export const users = [
     firstname: "Antonette",
     email: "Shanna@melissa.tv",
     dateOfBirth: "2022-04-16T14:31:57.960Z",
+    role: "ADMIN",
   },
   {
     id: 3,
@@ -19,6 +21,7 @@ export const users = [
     firstname: "Samantha",
     email: "Nathan@yesenia.net",
     dateOfBirth: "2024-8-16T14:31:57.960Z",
+    role: "ADMIN",
   },
   {
     id: 4,
@@ -26,6 +29,7 @@ export const users = [
     firstname: "Karianne",
     email: "Julianne.OConner@kory.org",
     dateOfBirth: "2024-02-15T14:31:57.960Z",
+    role: "EMPLOYEE",
   },
   {
     id: 5,
@@ -33,6 +37,7 @@ export const users = [
     firstname: "Kamren",
     email: "Lucio_Hettinger@annie.ca",
     dateOfBirth: "2023-02-16T14:31:57.960Z",
+    role: "EMPLOYEE",
   },
   {
     id: 6,
@@ -40,6 +45,7 @@ export const users = [
     firstname: "Leopoldo_Corkery",
     email: "Karley_Dach@jasper.info",
     dateOfBirth: "2013-02-16T14:31:57.960Z",
+    role: "EMPLOYEE",
   },
   {
     id: 7,
@@ -47,6 +53,7 @@ export const users = [
     firstname: "Elwyn.Skiles",
     email: "Telly.Hoeger@billy.biz",
     dateOfBirth: "2024-07-16T14:31:57.960Z",
+    role: "ADMIN",
   },
   {
     id: 8,
@@ -54,6 +61,7 @@ export const users = [
     firstname: "Maxime_Nienow",
     email: "Sherwood@rosamond.me",
     dateOfBirth: "2022-02-16T14:31:57.960Z",
+    role: "ADMIN",
   },
   {
     id: 9,
@@ -61,6 +69,7 @@ export const users = [
     firstname: "Delphine",
     email: "Chaim_McDermott@dana.io",
     dateOfBirth: "2021-02-16T14:31:57.960Z",
+    role: "EMPLOYEE",
   },
   {
     id: 10,
@@ -68,6 +77,7 @@ export const users = [
     firstname: "Moriah.Stanton",
     email: "Rey.Padberg@karina.biz",
     dateOfBirth: "2020-02-16T14:31:57.960Z",
+    role: "EMPLOYEE",
   },
 ];
 

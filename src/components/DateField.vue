@@ -3,7 +3,10 @@
     <label :for="label">{{ label }}</label>
     <VueDatePicker
       :input-class-name="twCustomClasses"
+      :format="format"
       :id="label"
+      auto-apply
+      text-input
       v-model="model"
     ></VueDatePicker>
   </div>
@@ -12,8 +15,17 @@
 <script lang="ts" setup>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { DATE_PICKER_FORMAT } from "@/utils/enum";
 
-defineProps<{ label: string }>();
+withDefaults(
+  defineProps<{
+    label: string;
+    format?: string;
+  }>(),
+  {
+    format: DATE_PICKER_FORMAT.DEFAULT,
+  },
+);
 
 const model = defineModel();
 const twCustomClasses =

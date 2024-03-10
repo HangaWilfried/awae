@@ -23,6 +23,7 @@
             </span>
           </h2>
           <TwButton
+            v-if="!session.token.isSuperAdmin"
             :cta="t('add')"
             class="text-sm"
             :theme="THEME.BLUE"
@@ -48,7 +49,7 @@
             @click="shouldDisplayAllCreated = true"
             :class="[
               'rounded-t min-w-16 text-sm text-center transition duration-500 ease-in px-4 py-2 font-bold cursor-pointer',
-              shouldDisplayAllCreated
+              shouldDisplayAllCreated || session.token.isSuperAdmin
                 ? 'text-blue-600 border-b-2 bg-blue-50 border-blue-600'
                 : 'text-gray-500',
             ]"

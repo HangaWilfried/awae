@@ -69,11 +69,13 @@
         <template v-if="sessionStore.token.email === holiday.owner.email">
           <TwButton
             :cta="t('publish')"
+            :disabled="isDisabled"
             :theme="THEME.BLUE"
             v-if="holiday.isDraft"
             @click="setAction('PUBLISH')"
           />
           <TwButton
+            :disabled="isDisabled"
             @click="setAction('DRAFT')"
             :cta="t('backToDraft')"
             :theme="THEME.DARK_GRAY"
@@ -84,11 +86,13 @@
           v-if="sessionStore.token.isAdmin || sessionStore.token.isSuperAdmin"
         >
           <TwButton
+            :disabled="isDisabled"
             @click="setAction('VALIDATE')"
             :cta="t('validate')"
             :theme="THEME.GREEN"
           />
           <TwButton
+            :disabled="isDisabled"
             @click="setAction('REJECT')"
             :cta="t('reject')"
             :theme="THEME.RED"
@@ -106,7 +110,7 @@ import ConfirmStatusChangesCard from "@/components/ConfirmStatusChangesCard.vue"
 import CloseButton from "@/components/CloseButton.vue";
 import HolidayStatus from "@/components/HolidayStatus.vue";
 import TwButton from "@/components/TwButton.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import type { Reason } from "@/domain/reason";
 import { useI18n } from "vue-i18n";
 import { useSessionStore } from "@/stores/session";
@@ -146,6 +150,8 @@ const setAction = async (
   }
   actionToInit.value = action;
 };
+
+const isDisabled = computed<boolean>(() => actionToInit.value !== undefined);
 
 const isStatusChangeLoading = ref<boolean>(false);
 

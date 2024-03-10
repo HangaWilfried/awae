@@ -47,7 +47,7 @@ const initAction = async (): Promise<void> => {
 
 <template>
   <section
-    class="flex absolute -left-40 -top-10 z-40 flex-col divide-y bg-gray-100 text-gray-800 divide-gray-300 rounded-md drop-shadow-lg shadow-xl"
+    class="flex absolute -left-40 -top-20 z-40 flex-col divide-y bg-gray-100 text-gray-800 divide-gray-300 rounded-md drop-shadow-lg shadow-xl"
   >
     <div class="flex p-2">
       <CloseButton @click="$emit('close')" />
@@ -62,6 +62,7 @@ const initAction = async (): Promise<void> => {
       <span class="font-bold w-72">{{ t(action.toLowerCase()) }}</span>
       <TwButton
         :cta="t('yes')"
+        class="!bg-indigo-600"
         :theme="THEME.LIGHT_BLUE"
         @click="initAction"
         :isLoading="isBusy"

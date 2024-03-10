@@ -60,6 +60,7 @@ const effect = watchEffect(() => {
           class="outline-none border border-gray-300 focus:border-2 focus:border-blue-400 rounded lg:rounded-lg p-2.5"
         />
         <div
+          :data-test="`display-${label}-list`"
           @click="state.shouldDisplayOptions = !state.shouldDisplayOptions"
           class="hover:bg-blue-50 p-2 rounded-md absolute cursor-pointer top-1.5 right-2"
         >

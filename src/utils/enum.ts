@@ -37,3 +37,8 @@ export enum DATE_FORMAT {
   DAY_MONTH_YEAR = "DD/MM/YYYY",
   YEAR = "YYYY",
 }
+
+export enum DATE_PICKER_FORMAT {
+  DEFAULT = "MM/dd/yyyy",
+  YEAR_MONTH_HOUR_MINUTE = "MM/dd/yyyy HH:mm",
+}
