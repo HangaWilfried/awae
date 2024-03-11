@@ -24,6 +24,44 @@
         <DetailItem :label="t('first_name')" :value="user.firstname" />
         <DetailItem :label="t('last_name')" :value="user.lastname" />
         <DetailItem :label="t('date_of_birth')" :value="user.dateOfBirth" />
+        <section class="flex flex-col gap-2">
+          <span class="text-gray-800 font-bold">{{ t("password") }}</span>
+          <div class="flex justify-between items-center gap-4">
+            <div
+              class="flex gap-1 font-bold items-center text-blue-400 cursor-pointer rounded-full border-2 border-blue-400 px-2 py-0.5"
+            >
+              <PencilIcon />
+              <span class="text-sm">{{ t("edit") }}</span>
+            </div>
+            <div
+              class="flex items-center border rounded justify-between divide-x bg-gray-50"
+            >
+              <input
+                type="password"
+                readonly
+                class="basis-full px-2 rounded bg-gray-50 text-gray-500 outline-none"
+                :value="secret"
+              />
+              <div
+                @click="copy"
+                :class="[
+                  'py-0.5 px-2 cursor-pointer transition ease-linear relative font-bold',
+                  isCopySucceed ? 'text-blue-400' : 'text-gray-400',
+                ]"
+              >
+                <ClipboardIcon />
+                <transition>
+                  <span
+                    v-if="isCopySucceed"
+                    class="text-blue-400 font-bold text-xs absolute"
+                  >
+                    {{ t("copied") }}
+                  </span>
+                </transition>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
       <section class="p-12">
         <div
@@ -50,6 +88,8 @@ import DetailItem from "@/components/DetailItem.vue";
 import UserIcon from "@/components/svg/UserIcon.vue";
 import type { Link } from "@/utils/type";
 import TwBreadcrumb from "@/components/TwBreadcrumb.vue";
+import ClipboardIcon from "@/components/svg/ClipboardIcon.vue";
+import PencilIcon from "@/components/svg/PencilIcon.vue";
 
 const props = defineProps<{
   userId?: string;
@@ -58,6 +98,8 @@ const props = defineProps<{
 const user = ref<User>();
 const shouldEditUser = ref<boolean>(false);
 const isLoading = ref<boolean>(false);
+
+const secret = ref<string>("ZW5jcnlwdGVyaGpkaGRmamZoZGpmamRoZmpkamZoZGpl");
 
 const breadcrumb = computed<Link[]>(() => [
   {
@@ -83,6 +125,21 @@ const fetchUserDetails = async (): Promise<void> => {
   }
 };
 
+const isCopySucceed = ref<boolean>(false);
+
+const copy = async (): Promise<void> => {
+  try {
+    await navigator.clipboard.writeText(secret.value);
+    isCopySucceed.value = true;
+    const timeoutId = setTimeout(() => {
+      isCopySucceed.value = false;
+      clearTimeout(timeoutId);
+    }, 1000);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 onBeforeMount(async () => {
   await fetchUserDetails();
 });
@@ -96,6 +153,8 @@ const { t } = useI18n({
       date_of_birth: "Date of birth",
       edit: "Edit",
       users: "Users",
+      password: "Password",
+      copied: "Copied",
     },
     fr: {
       email: "E-mail",
@@ -104,7 +163,21 @@ const { t } = useI18n({
       date_of_birth: "Date de naissance",
       edit: "Editer",
       users: "Utilisateurs",
+      password: "Mot de passe",
+      copied: "Copié",
     },
   },
 });
 </script>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
