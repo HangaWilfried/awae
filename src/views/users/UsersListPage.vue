@@ -121,6 +121,7 @@ const { t } = useI18n({
       admin: "Admin",
       employee: "Employee",
       superAdmin: "Owner",
+      role: "Role",
     },
     fr: {
       email: "Email",
@@ -133,6 +134,7 @@ const { t } = useI18n({
       admin: "Administrateur",
       employee: "Employé",
       superAdmin: "Propriétaire",
+      role: "Role",
     },
   },
 });

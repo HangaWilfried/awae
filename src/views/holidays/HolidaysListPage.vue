@@ -7,7 +7,7 @@
     />
     <HolidayDetailsModal
       :holidayId="currentHolidayId"
-      v-if="shouldDisplayModalDetails"
+      v-if="currentHolidayId"
       @close="closeHolidayDetailsModal"
     />
     <InLoading v-if="isLoading" />
@@ -125,16 +125,13 @@ const list = ref<Holiday[]>([]) as Ref<Holiday[]>;
 const holidays = computed<Holiday[]>(() => list.value);
 
 const currentHolidayId = ref<number | undefined>(undefined);
-const shouldDisplayModalDetails = ref<boolean>(false);
 
 const openHolidayDetailsModal = (holidayId: number): void => {
   currentHolidayId.value = holidayId;
-  shouldDisplayModalDetails.value = true;
 };
 
 const closeHolidayDetailsModal = async (): Promise<void> => {
   currentHolidayId.value = undefined;
-  shouldDisplayModalDetails.value = false;
   await getAllHolidays();
 };
 

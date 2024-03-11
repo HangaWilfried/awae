@@ -179,7 +179,7 @@ onBeforeMount(async () => {
             >
               <td class="px-2" v-for="column in headersColumns" :key="column">
                 <ConfigStatus
-                  :status="config.getTextFor(column)"
+                  :status="config.getTextFor(column) as string"
                   v-if="column === 'status'"
                 />
                 <span v-else>{{ config.getTextFor(column) }}</span>

@@ -2,7 +2,7 @@
   <main class="space-y-4 p-4">
     <EditUser
       :user="user"
-      v-if="shouldEditUser"
+      v-if="shouldEditUser && user"
       @refresh="fetchUserDetails"
       @close="shouldEditUser = false"
     />
@@ -19,11 +19,11 @@
       v-else
       class="space-y-4 bg-white rounded-xl p-8 flex justify-between"
     >
-      <section class="flex flex-col gap-y-7">
-        <DetailItem :label="t('email')" :value="user?.email" />
-        <DetailItem :label="t('first_name')" :value="user?.firstname" />
-        <DetailItem :label="t('last_name')" :value="user?.lastname" />
-        <DetailItem :label="t('date_of_birth')" :value="user?.dateOfBirth" />
+      <section class="flex flex-col gap-y-7" v-if="user">
+        <DetailItem :label="t('email')" :value="user.email" />
+        <DetailItem :label="t('first_name')" :value="user.firstname" />
+        <DetailItem :label="t('last_name')" :value="user.lastname" />
+        <DetailItem :label="t('date_of_birth')" :value="user.dateOfBirth" />
       </section>
       <section class="p-12">
         <div

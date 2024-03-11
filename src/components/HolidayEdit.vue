@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { THEME } from "@/utils/enum";
-import { computed, onBeforeMount, reactive, ref, watch } from "vue";
+import { computed, onBeforeMount, reactive, type Ref, ref, watch } from "vue";
 
 import { useHolidayStore } from "@/stores/holiday";
 import { useHolidayConfigStore } from "@/stores/config";
@@ -118,7 +118,9 @@ const state = reactive<State>({
   },
 });
 
-const config = ref<HolidayConfig>(NullableHolidayConfig());
+const config = ref<HolidayConfig>(
+  NullableHolidayConfig(),
+) as Ref<HolidayConfig>;
 const getConfigDetails = async (): Promise<void> => {
   config.value = await configStore.getActivatedConfigByHolidayType(
     +state.type.id,

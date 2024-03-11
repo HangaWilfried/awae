@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { onBeforeMount, reactive, ref, watch } from "vue";
 import type { HolidayForm } from "@/domain/holiday";
+import { onBeforeMount, reactive, type Ref, ref, watch } from "vue";
 
 import { THEME } from "@/utils/enum";
 import { useHolidayStore } from "@/stores/holiday";
@@ -70,7 +70,9 @@ const holiday = reactive<HolidayForm>({
   description: "",
 });
 
-const config = ref<HolidayConfig>(NullableHolidayConfig());
+const config = ref<HolidayConfig>(
+  NullableHolidayConfig(),
+) as Ref<HolidayConfig>;
 watch(
   () => holiday.type.id,
   async () => {

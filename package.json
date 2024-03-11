@@ -24,6 +24,7 @@
     "@vuelidate/validators": "^2.0.4",
     "@vuepic/vue-datepicker": "^8.2.0",
     "dayjs": "^1.11.10",
+    "form-data": "^4.0.0",
     "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.15",
@@ -60,8 +61,8 @@
     "vitest": "^1.2.2",
     "vue-tsc": "^1.8.27"
   },
-  "engines" : {
-    "npm" : ">=8.0.0",
-    "node" : ">=16.0.0"
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
   }
 }

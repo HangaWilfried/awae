@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import ModalWrapper from "@/components/ModalWrapper.vue";
 import HolidayDetails from "@/components/HolidayDetails.vue";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, type Ref, ref } from "vue";
 import { useHolidayStore } from "@/stores/holiday";
 import { type Holiday, NullableHoliday } from "@/domain/holiday";
 import HolidayEdit from "@/components/HolidayEdit.vue";
 
 const holidayStore = useHolidayStore();
-const holiday = ref<Holiday>(NullableHoliday());
+const holiday = ref<Holiday>(NullableHoliday()) as Ref<Holiday>;
 const isLoading = ref<boolean>(false);
 const shouldDisplayEditionForm = ref<boolean>(false);
 

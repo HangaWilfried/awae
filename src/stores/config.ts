@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
-import { HolidayConfigService, HolidayService } from "@/services/awae";
+import {
+  type HolidayConfigDTO,
+  HolidayConfigService,
+  HolidayService,
+} from "@/services/awae";
 import {
   HolidayConfig,
   HolidayType,
@@ -46,7 +50,9 @@ export const useHolidayConfigStore = defineStore("config", () => {
         await HolidayConfigService.getAllHolidayConfigByHolidayType({
           holidayTypeId,
         });
-      configs = responses.map((response) => new HolidayConfig(response));
+      configs = responses.map(
+        (response: HolidayConfigDTO) => new HolidayConfig(response),
+      );
     } catch (error) {
       console.log(error);
     }

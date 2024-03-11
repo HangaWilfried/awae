@@ -27,7 +27,7 @@ withDefaults(
   },
 );
 
-const model = defineModel();
+const model = defineModel<string | Date>();
 const twCustomClasses =
   "!rounded lg:!rounded-lg !px-10 py-2 lg:!py-2.5 outline-none border !border-gray-300 hover:!border-2 hover:!border-blue-400 focus:!border-2 focus:!border-blue-400";
 </script>
