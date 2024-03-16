@@ -19,7 +19,7 @@
             :theme="THEME.BORDER_BLUE"
           />
           <TwButton
-            @click="createUser"
+            @click="editPassword"
             :isLoading="isLoading"
             :cta="t('save')"
             :theme="THEME.BLUE"
@@ -64,7 +64,7 @@ const rules = computed(() => ({
 
 const v$ = useVuelidate(rules, { password });
 
-const createUser = async (): Promise<void> => {
+const editPassword = async (): Promise<void> => {
   isLoading.value = true;
   const isFormReady = await v$.value.$validate();
   if (isFormReady) {

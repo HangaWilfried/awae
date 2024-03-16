@@ -5,7 +5,7 @@
       <span>{{ t("unauthorized") }}</span>
       <span
         @click="backToSafeRoute"
-        class="text-blue-500 underline underline-offset-2"
+        class="text-blue-500 underline underline-offset-2 cursor-pointer"
       >
         {{ t("back") }}
       </span>

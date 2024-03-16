@@ -31,7 +31,7 @@ input[type="radio"] {
 
 input[type="radio"]::before {
   @apply absolute content-[""] w-[28px] h-full top-0 translate-x-0 transition
-  duration-200 ease-linear rounded-full bg-white shadow-lg;
+  duration-150 ease-linear rounded-full bg-white shadow-lg;
 }
 
 input[type="radio"]:checked {

@@ -12,6 +12,8 @@ const {
   stubConfigsByHolidayTypeById,
   stubHolidayTypeById,
   stubConfigById,
+  stubPassword,
+  stubEditPassword,
 } = utilsMocks();
 
 describe("Login as user with role super-admin", () => {
@@ -21,6 +23,8 @@ describe("Login as user with role super-admin", () => {
     stubEmployeeList();
     stubAdminAdd();
     stubEmployeeEdit();
+    stubPassword();
+    stubEditPassword();
     stubEmployeeDetails();
     fillEmployeeData(ROLE.SUPER_ADMIN);
     stubHolidaysTypes();

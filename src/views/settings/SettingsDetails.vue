@@ -146,7 +146,6 @@ onBeforeMount(async () => {
             :cta="t('add')"
             :theme="THEME.DARK_GRAY"
             @click="shouldAddConfig = true"
-            class="!px-4 !text-sm !rounded-lg"
           />
         </h2>
         <table class="w-full">

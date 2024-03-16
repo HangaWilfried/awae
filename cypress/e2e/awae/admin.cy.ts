@@ -8,6 +8,8 @@ const {
   stubEmployeeList,
   fillEmployeeData,
   stubEmployeeDetails,
+  stubPassword,
+  stubEditPassword,
 } = utilsMocks();
 
 describe("Login as user with role admin", () => {
@@ -16,6 +18,8 @@ describe("Login as user with role admin", () => {
     stubLogin();
     stubEmployeeList();
     stubEmployeeAdd();
+    stubPassword();
+    stubEditPassword();
     stubEmployeeEdit();
     stubEmployeeDetails();
     fillEmployeeData();

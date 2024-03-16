@@ -30,18 +30,19 @@ const sessionStore = useSessionStore();
 
 router.beforeEach((to, from, next) => {
   const token = sessionStore.token;
-
-  if (
-    to.meta.isPublic ||
-    (token?.isLoggedIn && token.hasRoleToAccess(to.meta?.allowedRoles))
-  ) {
+  if (to.meta.isPublic) {
     next();
   } else {
-    if (from.name === "auth" && token?.isEmployee) {
-      next("/holidays");
-    } else {
-      localStorage.setItem("safeRoute", from.path);
-      next("/403");
-    }
+    if (token.isLoggedIn) {
+      if (token.hasRoleToAccess(to.meta?.allowedRoles)) next();
+      else {
+        if (from.name === "auth" && token?.isEmployee) {
+          next("/holidays");
+        } else {
+          localStorage.setItem("safeRoute", from.path);
+          next("/403");
+        }
+      }
+    } else next("/");
   }
 });
