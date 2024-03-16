@@ -13,7 +13,9 @@
       {{ holiday.type?.name }}
     </td>
     <td>{{ holiday?.createdAt }}</td>
-    <td class="flex items-center justify-between col-span-2">
+    <td
+      class="flex items-center justify-between col-span-2 rounded-md border border-dashed border-gray-300/60 py-0.5 px-2"
+    >
       <div class="flex flex-col gap-1">
         <span>{{ t("startOn") }}</span>
         <span>{{ getLocalDateTime(holiday.validity?.startDate) }}</span>
