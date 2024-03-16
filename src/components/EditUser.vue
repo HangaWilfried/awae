@@ -18,11 +18,7 @@
           placeholder=""
           v-model="userEdit.firstname"
         />
-        <TextField
-          :label="t('dateOfBirth')"
-          placeholder=""
-          v-model="userEdit.dateOfBirth"
-        />
+        <DateField v-model="userEdit.dateOfBirth" :label="t('dateOfBirth')" />
         <div class="pt-4 flex gap-3 items-stretch justify-end">
           <TwButton
             @click="close"
@@ -54,6 +50,7 @@ import TwButton from "@/components/TwButton.vue";
 import TextField from "@/components/TextField.vue";
 import ModalWrapper from "@/components/ModalWrapper.vue";
 import CloseButton from "@/components/CloseButton.vue";
+import DateField from "@/components/DateField.vue";
 
 const userStore = useUserStore();
 const props = defineProps<{

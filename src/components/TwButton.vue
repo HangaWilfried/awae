@@ -3,7 +3,7 @@
     :data-test="cta"
     :disabled="disabled || isLoading"
     :class="[
-      'font-bold outline-none flex justify-center items-center rounded',
+      'font-bold outline-none flex justify-center items-center rounded-[4.75px] text-xs px-2 py-1.5 min-w-[60px]',
       theme.toLowerCase(),
       { 'cursor-pointer': !disabled || !isLoading },
     ]"
@@ -24,27 +24,27 @@ defineProps<{
 
 <style scoped>
 .blue {
-  @apply bg-blue-500 text-white p-2 min-w-24;
+  @apply bg-blue-500 text-white;
 }
 
 .border_blue {
-  @apply border border-gray-300 text-black p-2 min-w-24;
+  @apply border border-gray-300 text-black;
 }
 
 .gray {
-  @apply bg-gray-200/80 text-gray-900/40 p-2 min-w-24;
+  @apply bg-gray-200/80 text-gray-900/40;
 }
 
 .dark_gray {
-  @apply bg-gray-900 text-white p-2 min-w-24;
+  @apply bg-gray-900 text-white;
 }
 
 .red {
-  @apply bg-red-500 text-white p-2 min-w-24;
+  @apply bg-red-500 text-white;
 }
 
 .green {
-  @apply bg-green-600 text-white p-2 min-w-24;
+  @apply bg-green-600 text-white;
 }
 
 .light_blue {

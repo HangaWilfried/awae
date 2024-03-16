@@ -264,6 +264,33 @@ export const utilsMocks = () => {
     );
   };
 
+  const stubPassword = (): void => {
+    cy.intercept(
+      {
+        url: baseUrl + "employee/1/password",
+        method: "GET",
+      },
+      {
+        statusCode: 200,
+        body: {
+          value: "JFTVBMT1lFRSIsInN1YiI6ImVz",
+        },
+      },
+    );
+  };
+
+  const stubEditPassword = (): void => {
+    cy.intercept(
+      {
+        url: baseUrl + "employee/password",
+        method: "PUT",
+      },
+      {
+        statusCode: 204,
+      },
+    );
+  };
+
   return {
     stubLogin,
     stubMyHolidays,
@@ -284,5 +311,7 @@ export const utilsMocks = () => {
     stubPublishHoliday,
     stubActivatedHolidayConfigByHolidayType,
     stubHolidayCreate,
+    stubPassword,
+    stubEditPassword,
   };
 };

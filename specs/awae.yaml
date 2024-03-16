@@ -760,6 +760,51 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HolidayConfigDTO'
+  /employee/{employeeId}/password:
+    get:
+      tags:
+        - Employee
+      summary: get employee password
+      description: get employee password
+      operationId: getPasswordByEmployeeId
+      security:
+        - oAuth:
+            - EMPLOYEE,SUPER_ADMIN,ADMIN
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          description: employee type ID
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PassWordDTO'
+  /employee/password:
+    put:
+      tags:
+        - Employee
+      summary: update an employee password
+      description: update an employee password
+      operationId: updatePassword
+      security:
+        - oAuth:
+            - EMPLOYEE,SUPER_ADMIN,ADMIN
+      requestBody:
+        description: Holiday object that need to be update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassWordDTO'
+      responses:
+        201:
+          description: successful operation
 components:
   securitySchemes:
     oAuth:
@@ -949,3 +994,8 @@ components:
         - EMPLOYEE
         - ADMIN
         - SUPER_ADMIN
+    PassWordDTO:
+      type: object
+      properties:
+        value:
+          type: string

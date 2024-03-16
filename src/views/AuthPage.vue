@@ -48,8 +48,9 @@
             :label="t('password')"
             v-model="state.password"
           />
-          <div class="grid pt-10">
+          <div class="grid pt-7">
             <TwButton
+              class="!py-3 !text-sm"
               :theme="THEME.BLUE"
               :cta="t('signin')"
               @click="performAuthentication"

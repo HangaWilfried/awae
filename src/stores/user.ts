@@ -80,12 +80,40 @@ export const useUserStore = defineStore("user", () => {
     }
   };
 
+  const getPasswordByUserId = async (
+    userId: number,
+  ): Promise<string | undefined> => {
+    try {
+      const password = await EmployeeService.getPasswordByEmployeeId({
+        employeeId: userId,
+      });
+      return password.value;
+    } catch (error) {
+      console.log(error);
+      return undefined;
+    }
+  };
+
+  const resetPassword = async (password: string): Promise<void> => {
+    try {
+      await EmployeeService.updatePassword({
+        requestBody: {
+          value: password,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     updateUser,
     createAdmin,
+    resetPassword,
     deleteEmployee,
     createEmployee,
     getAllEmployees,
     getEmployeeById,
+    getPasswordByUserId,
   };
 });
