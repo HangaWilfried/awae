@@ -760,16 +760,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HolidayConfigDTO'
-  /employee/password:
+  /employee/{employeeId}/password:
     get:
       tags:
         - Employee
       summary: get employee password
       description: get employee password
-      operationId: getPassword
+      operationId: getPasswordByEmployeeId
       security:
         - oAuth:
             - EMPLOYEE,SUPER_ADMIN,ADMIN
+      parameters:
+        - name: employeeId
+          in: path
+          required: true
+          description: employee type ID
+          schema:
+            type: integer
+            format: int64
       responses:
         200:
           description: successful operation
@@ -777,6 +785,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PassWordDTO'
+  /employee/password:
     put:
       tags:
         - Employee

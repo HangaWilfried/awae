@@ -13,7 +13,7 @@
         </div>
         <div
           @click="logout"
-          class="cursor-pointer transition ease-linear hover:bg-red-50 hover:border-red-700 border-2 border-white rounded p-1.5 text-red-800"
+          class="cursor-pointer transition ease-linear hover:bg-gray-100 hover:border-gray-700 border-2 border-white rounded p-1 text-gray-800"
         >
           <PowerIcon />
         </div>
