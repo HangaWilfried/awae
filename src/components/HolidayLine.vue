@@ -16,12 +16,12 @@
     <td class="flex items-center justify-between col-span-2">
       <div class="flex flex-col gap-1">
         <span>{{ t("startOn") }}</span>
-        <span>{{ holiday.validity?.startDate }}</span>
+        <span>{{ getLocalDateTime(holiday.validity?.startDate) }}</span>
       </div>
       <div class="w-2 h-2 rounded-full border border-gray-800 shrink-0"></div>
       <div class="flex flex-col gap-1">
         <span>{{ t("endOn") }}</span>
-        <span>{{ holiday.validity?.endDate }}</span>
+        <span>{{ getLocalDateTime(holiday.validity?.endDate) }}</span>
       </div>
     </td>
     <td class="flex pl-5 gap-4 items-center">
@@ -43,6 +43,7 @@ import { useI18n } from "vue-i18n";
 import type { Holiday } from "@/domain/holiday";
 import HolidayStatus from "@/components/HolidayStatus.vue";
 import MoreActionIcon from "@/components/svg/MoreActionIcon.vue";
+import { getLocalDateTime } from "../utils/clock";
 
 defineProps<{
   holiday: Holiday;

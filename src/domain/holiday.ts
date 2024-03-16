@@ -6,6 +6,7 @@ import type {
   PeriodDTO,
 } from "@/services/awae";
 import { HolidayType, NullableHolidayType } from "@/domain/config";
+import { getLocalDateTime } from "@/utils/clock";
 
 const getStringFrom = (data?: string | number): string => {
   return data?.toString() || "";
@@ -38,7 +39,7 @@ export class Holiday {
   }
 
   get createdAt(): string {
-    return getStringFrom(this.holiday.createdAt);
+    return getLocalDateTime(getStringFrom(this.holiday.createdAt));
   }
 
   get status(): HOLIDAY_STATUS {
@@ -130,7 +131,7 @@ export class Period {
   }
 
   formatDate(t: (key: string) => string): string {
-    return `${t("from")} ${this.startDate} ${t("to")} ${this.endDate}`;
+    return `${t("from")} ${getLocalDateTime(this.startDate)} ${t("to")} ${getLocalDateTime(this.endDate)}`;
   }
 
   get DTO(): PeriodDTO {
