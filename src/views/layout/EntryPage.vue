@@ -1,5 +1,10 @@
 <template>
   <main class="min-h-screen box-border flex flex-col bg-gray-100/40">
+    <LogoutModal
+      v-if="shouldOpenLogoutModal"
+      @close="shouldOpenLogoutModal = false"
+      @confirm="logout"
+    />
     <nav
       ref="navBar"
       class="bg-white flex items-center justify-between p-4 border-b border-gray-100"
@@ -12,7 +17,7 @@
           {{ initials }}
         </div>
         <div
-          @click="logout"
+          @click="shouldOpenLogoutModal = true"
           class="cursor-pointer transition ease-linear hover:bg-gray-100 hover:border-gray-700 border-2 border-white rounded p-1 text-gray-800"
         >
           <PowerIcon />
@@ -34,6 +39,7 @@ import { RouterView, useRouter } from "vue-router";
 import { useSessionStore } from "@/stores/session";
 import AsideMenu from "@/components/AsideMenu.vue";
 import PowerIcon from "@/components/svg/PowerIcon.vue";
+import LogoutModal from "@/components/LogoutModal.vue";
 
 const session = useSessionStore();
 const initials = session.token?.avatar;
@@ -45,7 +51,10 @@ onMounted(() => {
 });
 
 const router = useRouter();
+const shouldOpenLogoutModal = ref<boolean>(false);
+
 const logout = async (): Promise<void> => {
+  shouldOpenLogoutModal.value = false;
   await router.push("/");
 };
 </script>
