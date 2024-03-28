@@ -111,7 +111,7 @@ const createHoliday = async (): Promise<void> => {
         <CloseButton class="self-end" @click="close" />
         <div class="text-lg">{{ t("formTitle") }}</div>
       </section>
-      <section class="p-5 flex flex-col gap-4">
+      <section class="px-7 py-5 flex flex-col gap-2.5">
         <TextField v-model="holiday.title" :label="t('title')" />
         <DropdownField
           v-model="holiday.type"
@@ -121,8 +121,10 @@ const createHoliday = async (): Promise<void> => {
         <Transition name="slide-fade">
           <HowItWorks :config="config" v-if="!config.isNull" />
         </Transition>
-        <DateField v-model="holiday.from" :label="t('from')" />
-        <DateField v-model="holiday.to" :label="t('to')" />
+        <div class="grid grid-cols-2 gap-3 items-center">
+          <DateField v-model="holiday.from" :label="t('from')" />
+          <DateField v-model="holiday.to" :label="t('to')" />
+        </div>
         <TextareaField
           v-model="holiday.description"
           :label="t('description')"

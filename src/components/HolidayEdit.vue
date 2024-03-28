@@ -1,6 +1,6 @@
 <template>
   <section
-    class="rounded-xl p-7 flex flex-col gap-4 w-[90%] max-w-[500px] bg-white"
+    class="rounded-xl px-7 py-5 flex flex-col gap-2.5 w-[90%] max-w-[500px] bg-white"
   >
     <TextField v-model="state.title" :label="t('title')" />
     <DropdownField
@@ -11,10 +11,12 @@
     <Transition name="slide-fade">
       <HowItWorks :config="config" v-if="!state.type.isNull" />
     </Transition>
-    <DateField v-model="state.period.start" :label="t('from')" />
-    <DateField v-model="state.period.end" :label="t('to')" />
+    <div class="grid grid-cols-2 gap-3 items-center">
+      <DateField v-model="state.period.start" :label="t('from')" />
+      <DateField v-model="state.period.end" :label="t('to')" />
+    </div>
     <TextareaField v-model="state.description" :label="t('description')" />
-    <div class="pt-7 flex gap-2 items-center">
+    <div class="pt-5 flex gap-2 items-center">
       <TwButton
         @click="$emit('close')"
         :cta="t('cancel')"

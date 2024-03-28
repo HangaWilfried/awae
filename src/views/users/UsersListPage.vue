@@ -58,7 +58,7 @@
               >
                 {{ t(row.getTextFor(column)) }}
               </span>
-              <span v-else>{{ row.getTextFor(column) }}</span>
+              <span class="break-all" v-else>{{ row.getTextFor(column) }}</span>
             </td>
           </tr>
         </tbody>
