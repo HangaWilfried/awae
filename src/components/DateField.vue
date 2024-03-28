@@ -35,7 +35,7 @@ const model = defineModel<string | Date>();
   --dp-border-color: transparent;
   --dp-border-color-hover: transparent;
   --dp-font-size: 14px;
-  --dp-input-padding: 9.5px 20px;
+  --dp-input-padding: 9.5px 8px;
   --dp-border-radius: 18px;
 
   @apply rounded lg:rounded-lg outline-none border border-gray-300 hover:border-2 hover:border-blue-400;
