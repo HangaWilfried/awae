@@ -51,6 +51,7 @@ import TextField from "@/components/TextField.vue";
 import ModalWrapper from "@/components/ModalWrapper.vue";
 import CloseButton from "@/components/CloseButton.vue";
 import DateField from "@/components/DateField.vue";
+import { getUTC } from "@/utils/clock";
 
 const userStore = useUserStore();
 const props = defineProps<{
@@ -104,6 +105,7 @@ const editUser = async (): Promise<void> => {
   isLoading.value = true;
   const isFormReady = await v$.value.$validate();
   if (isFormReady) {
+    userEdit.dateOfBirth = getUTC(userEdit.dateOfBirth);
     const payload = new User(userEdit);
     payload.id = +props.user.id;
     await userStore.updateUser(payload);
