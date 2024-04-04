@@ -82,9 +82,7 @@
             v-else
           />
         </template>
-        <template
-          v-if="sessionStore.token.isAdmin || sessionStore.token.isSuperAdmin"
-        >
+        <template v-if="AmIAbleToValidate || sessionStore.token.isSuperAdmin">
           <TwButton
             :disabled="isDisabled"
             @click="setAction('VALIDATE')"
@@ -141,6 +139,13 @@ const actionToInit = ref<string | undefined>(undefined);
 const closePopup = (): void => {
   actionToInit.value = undefined;
 };
+
+const AmIAbleToValidate = computed((): boolean => {
+  return (
+    sessionStore.token.email !== props.holiday.owner.email &&
+    sessionStore.token.isAdmin
+  );
+});
 
 const setAction = async (
   action: "PUBLISH" | "DRAFT" | "VALIDATE" | "REJECT",
